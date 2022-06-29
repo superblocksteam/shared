@@ -1,4 +1,4 @@
-import { P } from 'pino';
+import P from 'pino';
 import { RetryableError, QuotaError } from '../errors';
 
 export const NoBackoff: Backoff = {
