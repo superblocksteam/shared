@@ -54,23 +54,20 @@ export const S3Plugin: Plugin = {
             label: 'Region',
             name: 'authentication.custom.region.value',
             startVersion: S3PluginVersions.V1,
-            componentType: FormComponentType.INPUT_TEXT,
-            rules: [{ required: true, message: 'Region is required' }]
+            componentType: FormComponentType.INPUT_TEXT
           },
           {
             label: 'Access Key ID',
             name: 'authentication.custom.accessKeyID.value',
             startVersion: S3PluginVersions.V1,
-            componentType: FormComponentType.INPUT_TEXT,
-            rules: [{ required: true, message: 'Access Key ID is required' }]
+            componentType: FormComponentType.INPUT_TEXT
           },
           {
             label: 'Secret Key',
             name: 'authentication.custom.secretKey.value',
             startVersion: S3PluginVersions.V1,
             componentType: FormComponentType.INPUT_TEXT,
-            dataType: InputDataType.PASSWORD,
-            rules: [{ required: true, message: 'Secret Key is required' }]
+            dataType: InputDataType.PASSWORD
           }
         ]
       }
