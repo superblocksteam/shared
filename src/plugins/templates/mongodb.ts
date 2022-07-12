@@ -30,7 +30,6 @@ export const MongoDBPlugin: Plugin = {
   responseType: PluginResponseType.JSON,
   hasRawRequest: true,
   rawRequestName: 'Executed Operation',
-  agentVersion: '0.0.1',
   datasourceTemplate: {
     sections: [
       {

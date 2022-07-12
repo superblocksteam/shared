@@ -40,7 +40,6 @@ export const RestApiIntegrationPlugin: Plugin = {
   responseType: PluginResponseType.JSON,
   hasRawRequest: true,
   hasTest: false,
-  agentVersion: '0.13.0',
   datasourceTemplate: {
     sections: [
       {

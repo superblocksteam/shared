@@ -129,6 +129,8 @@ export interface DBConnection {
     ca?: string;
     key?: string;
     cert?: string;
+    // This field is set on the demo postgres
+    mode?: 0;
   };
 }
 

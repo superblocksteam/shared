@@ -8,6 +8,10 @@ export const AGENT_VERSION_EXTERNAL_HEADER = 'x-superblocks-agent-version-extern
 export const AGENT_INTERNAL_HOST_URL_HEADER = 'x-superblocks-agent-internal-host-url';
 export const CORRELATION_ID = 'X-Superblocks-Correlation-Id';
 
+export const FORWARDED_COOKIE_PREFIX = 'sb_fwd_';
+export const FORWARDED_COOKIE_DELIMITER = '_$$_';
+export type ForwardedCookies = Record<string, { domain: string; value: string }>;
+
 export enum AGENT_EXTERNAL_VERSIONS {
   /* Versions greater than v0.31.0 support the workflow trigger with the bearer token as a query parameter. */
   V_0_31_0 = 'v0.31.0'

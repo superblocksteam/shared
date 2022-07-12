@@ -190,6 +190,8 @@ export interface MetadataDropdownFormItem extends BaseFormItem {
   keyAccessor?: string;
   valueAccessor?: string;
   displayNameAccessor?: string;
+  showSearch?: boolean;
+  optionFilterProp?: string;
 }
 
 export interface ConnectOAuthButtonFormItem extends BaseFormItem {

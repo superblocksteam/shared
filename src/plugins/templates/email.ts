@@ -90,7 +90,6 @@ export const EmailPlugin: Plugin = {
   responseType: PluginResponseType.JSON,
   hasRawRequest: true,
   rawRequestName: 'Executed Request',
-  agentVersion: '0.12.0',
   // TODO: Enable this when we make the Email integration user configurable
   // datasourceTemplate: {
   //   sections: [

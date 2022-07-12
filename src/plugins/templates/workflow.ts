@@ -13,7 +13,6 @@ export const WorkflowPlugin: Plugin = {
   type: PluginType.API,
   responseType: PluginResponseType.JSON,
   hasRawRequest: false,
-  agentVersion: '0.0.1',
   datasourceTemplate: {
     sections: []
   },

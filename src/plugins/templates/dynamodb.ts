@@ -83,7 +83,6 @@ export const DynamoDBPlugin: Plugin = {
   responseType: PluginResponseType.JSON,
   hasRawRequest: true,
   rawRequestName: 'Executed Query',
-  agentVersion: '0.0.1',
   datasourceTemplate: {
     sections: [
       {

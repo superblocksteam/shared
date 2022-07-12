@@ -40,8 +40,15 @@ export const GeneratedUpdateAuditLogRequest = {
           "format": "date-time"
         },
         "endTime": {
-          "type": "string",
-          "format": "date-time"
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ]
         },
         "source": {
           "type": "string"
@@ -93,12 +100,47 @@ export const GeneratedUpdateAuditLogRequest = {
         "endTime": {
           "type": "string",
           "format": "date-time"
+        },
+        "target": {
+          "type": "string"
+        },
+        "locationContext": {
+          "$ref": "#/definitions/ApiLocationContext"
+        },
+        "status": {
+          "$ref": "#/definitions/ApiRunStatus"
+        },
+        "error": {
+          "type": "string"
         }
       },
       "required": [
         "type"
       ],
       "additionalProperties": false
+    },
+    "ApiLocationContext": {
+      "type": "object",
+      "properties": {
+        "applicationId": {
+          "type": "string"
+        },
+        "pageId": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "applicationId",
+        "pageId"
+      ],
+      "additionalProperties": false
+    },
+    "ApiRunStatus": {
+      "type": "number",
+      "enum": [
+        0,
+        1
+      ]
     },
     "StepDetail": {
       "type": "object",

@@ -14,7 +14,6 @@ export interface Plugin {
   hasRawRequest: boolean; // Temporary until all plugins support a raw response
   datasourceTemplate?: FormTemplate; // Template for generating the datasource (Integrations Page) form in the UI
   actionTemplate: FormTemplate; // Template for generating the action (API Step) form in the UI
-  agentVersion: string; // Semver of the agent that supports this version of the plugin
   demoData?: Record<string, unknown>;
   hasTest?: boolean; // Specifies whether the plugin has a test connection operation; defaults to true
   preCreateValidate?(integrationCreated: boolean, datasourceConfiguration: DatasourceConfiguration): string | undefined;

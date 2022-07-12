@@ -38,7 +38,6 @@ export const S3Plugin: Plugin = {
   responseType: PluginResponseType.JSON,
   hasRawRequest: true,
   rawRequestName: 'Executed Action',
-  agentVersion: '0.0.1',
   datasourceTemplate: {
     sections: [
       {

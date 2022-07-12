@@ -16,7 +16,6 @@ export const SnowflakePlugin: Plugin = {
   responseType: PluginResponseType.TABLE,
   hasRawRequest: true,
   rawRequestName: 'Executed SQL',
-  agentVersion: '0.0.1',
   datasourceTemplate: {
     sections: [
       {

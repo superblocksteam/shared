@@ -406,6 +406,10 @@ export const GeneratedDatasourceUpdate = {
             },
             "cert": {
               "type": "string"
+            },
+            "mode": {
+              "type": "number",
+              "const": 0
             }
           },
           "additionalProperties": false
@@ -492,6 +496,10 @@ export const GeneratedDatasourceUpdate = {
             },
             "cert": {
               "type": "string"
+            },
+            "mode": {
+              "type": "number",
+              "const": 0
             }
           },
           "additionalProperties": false
@@ -578,6 +586,10 @@ export const GeneratedDatasourceUpdate = {
             },
             "cert": {
               "type": "string"
+            },
+            "mode": {
+              "type": "number",
+              "const": 0
             }
           },
           "additionalProperties": false
@@ -664,6 +676,10 @@ export const GeneratedDatasourceUpdate = {
             },
             "cert": {
               "type": "string"
+            },
+            "mode": {
+              "type": "number",
+              "const": 0
             }
           },
           "additionalProperties": false
@@ -756,6 +772,10 @@ export const GeneratedDatasourceUpdate = {
             },
             "cert": {
               "type": "string"
+            },
+            "mode": {
+              "type": "number",
+              "const": 0
             }
           },
           "additionalProperties": false
@@ -1019,6 +1039,10 @@ export const GeneratedDatasourceUpdate = {
             },
             "cert": {
               "type": "string"
+            },
+            "mode": {
+              "type": "number",
+              "const": 0
             }
           },
           "additionalProperties": false
@@ -1108,6 +1132,10 @@ export const GeneratedDatasourceUpdate = {
             },
             "cert": {
               "type": "string"
+            },
+            "mode": {
+              "type": "number",
+              "const": 0
             }
           },
           "additionalProperties": false

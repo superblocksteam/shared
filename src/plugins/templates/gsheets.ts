@@ -73,7 +73,6 @@ export const GoogleSheetsPlugin = (googleSheetsClientId: string, redirectPath: s
     type: PluginType.API,
     responseType: PluginResponseType.TABLE,
     hasRawRequest: false,
-    agentVersion: '0.0.1',
     hasTest: true,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     preCreateValidate: (integrationCreated: boolean, values: GoogleSheetsDatasourceConfiguration): string | undefined => {
@@ -286,7 +285,9 @@ export const GoogleSheetsPlugin = (googleSheetsClientId: string, redirectPath: s
                   ]
                 }
               },
-              rules: [{ required: true, message: 'Spreadsheet is required' }]
+              rules: [{ required: true, message: 'Spreadsheet is required' }],
+              showSearch: true,
+              optionFilterProp: 'label'
             },
             {
               label: 'Sheet name',
@@ -309,7 +310,9 @@ export const GoogleSheetsPlugin = (googleSheetsClientId: string, redirectPath: s
                   ]
                 }
               },
-              rules: [{ required: true, message: 'Sheet is required' }]
+              rules: [{ required: true, message: 'Sheet is required' }],
+              showSearch: true,
+              optionFilterProp: 'label'
             },
             {
               label: 'Use Row 1 of the sheet as the Table Header',

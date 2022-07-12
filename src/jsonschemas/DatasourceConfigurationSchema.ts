@@ -345,6 +345,10 @@ export const GeneratedDatasourceConfigurationSchema = {
             },
             "cert": {
               "type": "string"
+            },
+            "mode": {
+              "type": "number",
+              "const": 0
             }
           },
           "additionalProperties": false
@@ -431,6 +435,10 @@ export const GeneratedDatasourceConfigurationSchema = {
             },
             "cert": {
               "type": "string"
+            },
+            "mode": {
+              "type": "number",
+              "const": 0
             }
           },
           "additionalProperties": false
@@ -517,6 +525,10 @@ export const GeneratedDatasourceConfigurationSchema = {
             },
             "cert": {
               "type": "string"
+            },
+            "mode": {
+              "type": "number",
+              "const": 0
             }
           },
           "additionalProperties": false
@@ -603,6 +615,10 @@ export const GeneratedDatasourceConfigurationSchema = {
             },
             "cert": {
               "type": "string"
+            },
+            "mode": {
+              "type": "number",
+              "const": 0
             }
           },
           "additionalProperties": false
@@ -695,6 +711,10 @@ export const GeneratedDatasourceConfigurationSchema = {
             },
             "cert": {
               "type": "string"
+            },
+            "mode": {
+              "type": "number",
+              "const": 0
             }
           },
           "additionalProperties": false
@@ -958,6 +978,10 @@ export const GeneratedDatasourceConfigurationSchema = {
             },
             "cert": {
               "type": "string"
+            },
+            "mode": {
+              "type": "number",
+              "const": 0
             }
           },
           "additionalProperties": false
@@ -1047,6 +1071,10 @@ export const GeneratedDatasourceConfigurationSchema = {
             },
             "cert": {
               "type": "string"
+            },
+            "mode": {
+              "type": "number",
+              "const": 0
             }
           },
           "additionalProperties": false

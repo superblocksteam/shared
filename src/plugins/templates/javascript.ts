@@ -14,7 +14,6 @@ export const JavascriptPlugin: Plugin = {
   responseType: PluginResponseType.JSON,
   hasRawRequest: true,
   rawRequestName: 'Executed Code',
-  agentVersion: '0.0.1',
   datasourceTemplate: {
     sections: []
   },

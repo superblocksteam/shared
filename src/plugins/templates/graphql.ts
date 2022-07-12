@@ -14,7 +14,6 @@ export const GraphQLPlugin: Plugin = {
   responseType: PluginResponseType.JSON,
   hasRawRequest: true,
   rawRequestName: 'Executed Request',
-  agentVersion: '0.0.1',
   datasourceTemplate: {
     sections: []
   },

@@ -1,3 +1,6 @@
+import { ApiLocationContext } from '../api';
+import { ApiRunStatus } from './apiRunDetails';
+
 export enum AuditLogEntityType {
   APPLICATION,
   WORKFLOW,
@@ -17,6 +20,10 @@ export enum AuditLogEventType {
 export interface AuditLogDetails {
   type: AuditLogEventType;
   endTime?: Date;
+  target?: string;
+  locationContext?: ApiLocationContext;
+  status?: ApiRunStatus;
+  error?: string;
 }
 
 export type AuditLogDto = {
@@ -26,7 +33,7 @@ export type AuditLogDto = {
   organizationId?: string;
   deployed: boolean;
   startTime: Date;
-  endTime?: Date;
+  endTime?: Date | null;
   source?: string;
   type?: AuditLogEventType;
   details?: AuditLogDetails;
