@@ -2,6 +2,7 @@
 logs/
 build/
 dist/
+dist-esm/
 data/
 
 # Typescript

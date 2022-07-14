@@ -52,14 +52,15 @@ import type { ValidateFunction } from 'ajv';
 
 export * from '../schemas/${name}';
 
-export const Generated${name} = ${JSON.stringify(schema, null, 2)};
-
 export const validate${name} = getValidatorFunction<${name}>(validate as ValidateFunction);
 `,
     (err) => {
       throw new Error(err);
     }
   );
+  fs.writeFileSync(`./src/jsonschemas/${name}.json`, JSON.stringify(schema, null, 2), (err) => {
+    throw new Error(err);
+  });
 });
 
 fs.writeFileSync(

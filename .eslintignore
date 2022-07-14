@@ -3,3 +3,4 @@ node_modules
 .github
 data
 dist
+dist-esm

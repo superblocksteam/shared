@@ -36,7 +36,7 @@ export class QuotaError extends Error {
 }
 
 export function wrapError(err: Error, msg: string): string {
-  if (isEmpty(err?.message)) {
+  if (!isEmpty(err?.message)) {
     msg = `${msg}: ${err.message}`;
   }
   return msg;

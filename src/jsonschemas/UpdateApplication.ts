@@ -7,39 +7,4 @@ import type { ValidateFunction } from 'ajv';
 
 export * from '../schemas/UpdateApplication';
 
-export const GeneratedUpdateApplication = {
-  "$schema": "http://json-schema.org/draft-07/schema#",
-  "$ref": "#/definitions/UpdateApplication",
-  "definitions": {
-    "UpdateApplication": {
-      "type": "object",
-      "properties": {
-        "environment": {
-          "type": "string",
-          "enum": [
-            "staging",
-            "production"
-          ]
-        },
-        "name": {
-          "type": "string"
-        },
-        "color": {
-          "type": "string"
-        },
-        "icon": {
-          "type": "string"
-        },
-        "folderId": {
-          "type": "string"
-        },
-        "isPublic": {
-          "type": "boolean"
-        }
-      },
-      "additionalProperties": false
-    }
-  }
-};
-
 export const validateUpdateApplication = getValidatorFunction<UpdateApplication>(validate as ValidateFunction);

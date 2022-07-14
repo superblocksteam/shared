@@ -1,0 +1,57 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/DiagnosticRequestBody",
+  "definitions": {
+    "DiagnosticRequestBody": {
+      "$ref": "#/definitions/PostDiagnosticRequestBody"
+    },
+    "PostDiagnosticRequestBody": {
+      "$ref": "#/definitions/DiagnosticMetadata"
+    },
+    "DiagnosticMetadata": {
+      "type": "object",
+      "properties": {
+        "pluginId": {
+          "type": "string"
+        },
+        "actionName": {
+          "type": "string"
+        },
+        "actionId": {
+          "type": "string"
+        },
+        "applicationId": {
+          "type": "string"
+        },
+        "datasourceId": {
+          "type": "string"
+        },
+        "apiId": {
+          "type": "string"
+        },
+        "environment": {
+          "type": "string"
+        },
+        "messageType": {
+          "$ref": "#/definitions/AgentMessageType"
+        },
+        "message": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "AgentMessageType": {
+      "type": "string",
+      "enum": [
+        "integrationError",
+        "internalError",
+        "unauthorizedError",
+        "uncategorizedError"
+      ]
+    }
+  }
+}
