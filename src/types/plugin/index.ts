@@ -1,6 +1,7 @@
 import { DatasourceConfiguration } from '../datasource';
 import { compareSemVer } from '../organization';
 import { FormTemplate } from './form';
+import { getBasePluginId } from './integration';
 
 export interface Plugin {
   id: string; // Unique ID for the plugin
@@ -125,6 +126,19 @@ export const getRestApiBodyLabel = function (dataType: RestApiBodyDataType): str
   return restApiBodyLabel.get(dataType) ?? '';
 };
 
+export const getPluginExecutionVersion = (pluginExecutionVersions: PluginExecutionVersions, pluginId: string): SemVer => {
+  return pluginExecutionVersions[getBasePluginId(pluginId)];
+};
+
+export const setPluginExecutionVersion = (
+  pluginExecutionVersions: PluginExecutionVersions,
+  pluginId: string,
+  pluginVersion: SemVer
+): void => {
+  pluginExecutionVersions[getBasePluginId(pluginId)] = pluginVersion;
+};
+
 export * from './form';
 export * from './language';
 export * from './evaluation';
+export * from './integration';

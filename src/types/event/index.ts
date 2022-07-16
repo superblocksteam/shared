@@ -14,7 +14,9 @@ export enum EventEntityType {
   SURVEY = 'survey',
   ACCOUNT = 'account',
   BILLING = 'billing',
-  OBSERVABILITY = 'observability'
+  OBSERVABILITY = 'observability',
+  GROUP = 'group',
+  ORGANIZATION_INVITES = 'organization_invites'
 }
 
 export enum ViewMode {
@@ -45,7 +47,12 @@ export enum EventAction {
   ACCESS_REQUESTED = 'access_requested',
   ACCESS_ACCEPTED = 'access_accepted',
   EXTEND_TRIAL = 'extend_trial',
-  UPGRADE_PLAN = 'upgrade_plan'
+  UPGRADE_PLAN = 'upgrade_plan',
+  DOWNGRADE_TO_FREE = 'downgrade_to_free',
+  MEMBER_ADDED = 'member_added',
+  MEMBER_REMOVED = 'member_removed',
+  SENT = 'sent',
+  ACCEPTED = 'accepted'
 }
 
 export interface UserEvent {

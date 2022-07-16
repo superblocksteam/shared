@@ -12,6 +12,7 @@ export * from './HealthcheckRequestBody';
 export * from './LayoutUpdate';
 export * from './LogRequestBody';
 export * from './PageSchema';
+export * from './PostUserTokenRequest';
 export * from './RegistrationRequestBody';
 export * from './ResetFromVersion';
 export * from './RowsSchema';

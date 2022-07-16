@@ -10,7 +10,8 @@ import {
   PluginResponseType,
   PluginType,
   RestApiBodyDataType,
-  RestApiFields
+  RestApiFields,
+  REST_API_BASE_PLUGIN_ID
 } from '../../types';
 
 export const RestApiPluginVersions = {
@@ -20,7 +21,7 @@ export const RestApiPluginVersions = {
 };
 
 export const RestApiPlugin: Plugin = {
-  id: 'restapi',
+  id: REST_API_BASE_PLUGIN_ID,
   name: 'REST API',
   moduleName: 'RestApiPlugin',
   modulePath: 'plugins/restApi/RestApiPlugin',

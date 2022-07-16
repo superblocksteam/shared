@@ -1,9 +1,12 @@
 import {
   EditorLanguage,
+  ExtendedIntegrationPluginId,
   FormComponentType,
   FormSectionLayout,
-  getRestApiDataTypeDisplayName,
   getDisplayName,
+  getRestApiBodyLabel,
+  getRestApiDataTypeDisplayName,
+  getRestApiFieldDisplayName,
   HttpMethod,
   InputDataType,
   Plugin,
@@ -11,18 +14,13 @@ import {
   PluginType,
   RestApiBodyDataType,
   RestApiFields,
-  RestApiIntegrationAuthType,
-  getRestApiFieldDisplayName,
-  getRestApiBodyLabel
+  RestApiIntegrationAuthType
 } from '../../types';
 
 export enum RestApiIntegrationPluginMergedFieldNames {
   HEADERS = 'headers',
   PARAMS = 'params'
 }
-
-export const REST_API_INTEGRATION_PLUGIN_ID = 'restapiintegration';
-export const REST_API_INTEGRATION_PLUGIN_MERGED_SECTION_NAME = 'tabs';
 
 export const RestApiIntegrationPluginVersions = {
   V1: '0.0.1',
@@ -31,7 +29,7 @@ export const RestApiIntegrationPluginVersions = {
 };
 
 export const RestApiIntegrationPlugin: Plugin = {
-  id: REST_API_INTEGRATION_PLUGIN_ID,
+  id: ExtendedIntegrationPluginId.REST_API,
   name: 'REST API',
   moduleName: 'RestApiIntegrationPlugin',
   modulePath: 'plugins/restApiIntegration/RestApiIntegrationPlugin',
@@ -510,7 +508,7 @@ Note: REST APIs authenticated with firebase cannot be used in Superblocks Workfl
         ]
       },
       {
-        name: REST_API_INTEGRATION_PLUGIN_MERGED_SECTION_NAME,
+        name: 'tabs',
         layout: FormSectionLayout.TABS,
         items: [
           {

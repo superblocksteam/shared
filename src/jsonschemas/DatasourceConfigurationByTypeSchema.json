@@ -17,6 +17,9 @@
         "email": {
           "$ref": "#/definitions/EmailDatasourceConfiguration"
         },
+        "graphqlintegration": {
+          "$ref": "#/definitions/GraphQLDatasourceConfiguration"
+        },
         "graphql": {
           "$ref": "#/definitions/GraphQLDatasourceConfiguration"
         },
@@ -255,6 +258,42 @@
       }
     },
     "GraphQLDatasourceConfiguration": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "path": {
+          "type": "string"
+        },
+        "headers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Property"
+          }
+        },
+        "name": {
+          "type": "string"
+        },
+        "dynamicWorkflowConfiguration": {
+          "type": "object",
+          "properties": {
+            "enabled": {
+              "type": "boolean"
+            },
+            "workflowId": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "superblocksMetadata": {
+          "$ref": "#/definitions/PluginVersionMetadata"
+        }
+      }
+    },
+    "JavascriptDatasourceConfiguration": {
+      "$ref": "#/definitions/LanguageDatasourceConfiguration"
+    },
+    "LanguageDatasourceConfiguration": {
       "$ref": "#/definitions/DefaultDatasourceConfiguration"
     },
     "DefaultDatasourceConfiguration": {
@@ -283,12 +322,6 @@
           "$ref": "#/definitions/PluginVersionMetadata"
         }
       }
-    },
-    "JavascriptDatasourceConfiguration": {
-      "$ref": "#/definitions/LanguageDatasourceConfiguration"
-    },
-    "LanguageDatasourceConfiguration": {
-      "$ref": "#/definitions/DefaultDatasourceConfiguration"
     },
     "MariaDBDatasourceConfiguration": {
       "type": "object",

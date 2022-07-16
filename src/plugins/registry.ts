@@ -1,23 +1,26 @@
 import { Plugin } from '../types';
-import { RocksetPlugin } from './templates';
-import { BigQueryPlugin } from './templates/bigquery';
-import { DynamoDBPlugin } from './templates/dynamodb';
-import { EmailPlugin } from './templates/email';
-import { GraphQLPlugin } from './templates/graphql';
-import { GoogleSheetsPlugin } from './templates/gsheets';
-import { JavascriptPlugin } from './templates/javascript';
-import { MariaDBPlugin } from './templates/mariadb';
-import { MongoDBPlugin } from './templates/mongodb';
-import { MicrosoftSQLPlugin } from './templates/mssql';
-import { MySQLPlugin } from './templates/mysql';
-import { PostgresPlugin } from './templates/postgres';
-import { PythonPlugin } from './templates/python';
-import { RedshiftPlugin } from './templates/redshift';
-import { RestApiPlugin } from './templates/restApi';
-import { RestApiIntegrationPlugin } from './templates/restApiIntegration';
-import { S3Plugin } from './templates/s3';
-import { SnowflakePlugin } from './templates/snowflake';
-import { WorkflowPlugin } from './templates/workflow';
+import {
+  BigQueryPlugin,
+  DynamoDBPlugin,
+  EmailPlugin,
+  GoogleSheetsPlugin,
+  GraphQLIntegrationPlugin,
+  GraphQLPlugin,
+  JavascriptPlugin,
+  MariaDBPlugin,
+  MicrosoftSQLPlugin,
+  MongoDBPlugin,
+  MySQLPlugin,
+  PostgresPlugin,
+  PythonPlugin,
+  RedshiftPlugin,
+  RestApiIntegrationPlugin,
+  RestApiPlugin,
+  RocksetPlugin,
+  S3Plugin,
+  SnowflakePlugin,
+  WorkflowPlugin
+} from './templates';
 
 class PluginRegistry {
   plugins: Record<string, Plugin>;
@@ -53,6 +56,7 @@ export const RegisteredPlugins = (googleSheetsClientId: string, googleSheetsRedi
     [BigQueryPlugin.id]: BigQueryPlugin,
     [DynamoDBPlugin.id]: DynamoDBPlugin,
     [EmailPlugin.id]: EmailPlugin,
+    [GraphQLIntegrationPlugin.id]: GraphQLIntegrationPlugin,
     [GraphQLPlugin.id]: GraphQLPlugin,
     [JavascriptPlugin.id]: JavascriptPlugin,
     [MariaDBPlugin.id]: MariaDBPlugin,

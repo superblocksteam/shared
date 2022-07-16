@@ -28,6 +28,11 @@ export const emailPluginMigrations: VersionedMigrations = {
   downMigrations: {}
 };
 
+export const graphQLIntegrationPluginMigrations: VersionedMigrations = {
+  upMigrations: {},
+  downMigrations: {}
+};
+
 export const graphQLPluginMigrations: VersionedMigrations = {
   upMigrations: {},
   downMigrations: {}

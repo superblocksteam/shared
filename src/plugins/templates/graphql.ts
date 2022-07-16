@@ -1,11 +1,19 @@
-import { EditorLanguage, FormComponentType, FormSectionLayout, Plugin, PluginResponseType, PluginType } from '../../types';
+import {
+  EditorLanguage,
+  FormComponentType,
+  FormSectionLayout,
+  GRAPHQL_BASE_PLUGIN_ID,
+  Plugin,
+  PluginResponseType,
+  PluginType
+} from '../../types';
 
 export const GraphQLPluginVersions = {
   V1: '0.0.1'
 };
 
 export const GraphQLPlugin: Plugin = {
-  id: 'graphql',
+  id: GRAPHQL_BASE_PLUGIN_ID,
   name: 'GraphQL',
   moduleName: 'GraphQLPlugin',
   modulePath: 'plugins/graphql/GraphQLPlugin',

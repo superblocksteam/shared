@@ -2,6 +2,7 @@ export * from './bigquery';
 export * from './constants';
 export * from './dynamodb';
 export * from './email';
+export * from './graphqlintegration';
 export * from './graphql';
 export * from './javascript';
 export * from './mariadb';

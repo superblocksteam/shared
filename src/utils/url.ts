@@ -82,13 +82,6 @@ export const makeCurlString = ({
       }
       break;
     }
-    case RestApiBodyDataType.RAW: {
-      if (!isEmpty(reqBody)) {
-        curlRequest += lineConnector;
-        curlRequest += `\t--data-raw '${reqBody}'`;
-      }
-      break;
-    }
     case RestApiBodyDataType.FORM: {
       if (!isEmpty(reqFormData)) {
         for (const property of reqFormData as Property[]) {
@@ -104,6 +97,13 @@ export const makeCurlString = ({
         curlRequest += `\t--form '${reqFileFormKey}="@${reqFileName}"'`;
       }
       break;
+    }
+    case RestApiBodyDataType.RAW:
+    default: {
+      if (!isEmpty(reqBody)) {
+        curlRequest += lineConnector;
+        curlRequest += `\t--data-raw '${reqBody}'`;
+      }
     }
   }
 

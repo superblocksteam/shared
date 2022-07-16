@@ -98,6 +98,15 @@ export type AgentError = {
   code?: number;
 };
 
+export interface WorkerStatus {
+  id: string;
+  plugins: string[];
+  cordoned: boolean;
+  labels: Record<string, string>;
+  secure: boolean;
+  created: number;
+}
+
 export interface Health {
   uptime: number;
   message: string;
@@ -109,6 +118,7 @@ export interface Health {
   version_external: string;
   registered: boolean;
   server_errors?: AgentError[];
+  workers?: WorkerStatus[];
 }
 
 export interface CommonMetrics {

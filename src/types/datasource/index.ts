@@ -8,6 +8,7 @@ export class DatasourceDto {
   id: string;
   name: string;
   pluginId?: string;
+  pluginName?: string;
   organizationId?: string;
   configuration?: DatasourceConfiguration;
   configurationProd?: DatasourceConfiguration;
@@ -22,6 +23,7 @@ export class DatasourceDto {
   };
   demoIntegrationId?: string;
   ownerEmail?: string;
+  error?: string;
 
   constructor(datasource: DatasourceDto, ownerEmail?: string) {
     this.id = datasource.id;
@@ -165,7 +167,10 @@ export type EmailDatasourceConfiguration = BaseDatasourceConfiguration & {
   };
 };
 
-export type GraphQLDatasourceConfiguration = DefaultDatasourceConfiguration;
+export type GraphQLDatasourceConfiguration = BaseDatasourceConfiguration & {
+  path?: string;
+  headers?: Property[];
+};
 
 export type JavascriptDatasourceConfiguration = LanguageDatasourceConfiguration;
 
@@ -278,6 +283,7 @@ export type DatasourceConfigurationByType = {
   bigquery?: BigqueryDatasourceConfiguration;
   dynamodb?: DynamoDBDatasourceConfiguration;
   email?: EmailDatasourceConfiguration;
+  graphqlintegration?: GraphQLDatasourceConfiguration;
   graphql?: GraphQLDatasourceConfiguration;
   javascript?: JavascriptDatasourceConfiguration;
   mariadb?: MariaDBDatasourceConfiguration;

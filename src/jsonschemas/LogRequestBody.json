@@ -116,7 +116,9 @@
         "survey",
         "account",
         "billing",
-        "observability"
+        "observability",
+        "group",
+        "organization_invites"
       ]
     }
   }
