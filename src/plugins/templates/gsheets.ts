@@ -157,7 +157,7 @@ export const GoogleSheetsPlugin = (googleSheetsClientId: string, redirectPath: s
               componentType: FormComponentType.CUSTOM_COMPONENT,
               childComponentType: FormComponentType.CONNECT_OAUTH_BUTTON,
               childComponentsProperties: {
-                href: `https://accounts.google.com/o/oauth2/v2/auth?access_type=offline&scope=$\{authConfig.scope\}&response_type=code&client_id=${googleSheetsClientId}&state=$\{state\}&redirect_uri=$\{state.origin\}${redirectPath}`,
+                hrefTemplate: `https://accounts.google.com/o/oauth2/v2/auth?access_type=offline&scope=<%=context.getValue('authConfig.scope')%>&response_type=code&client_id=${googleSheetsClientId}&state=<%=btoa(JSON.stringify(state))%>&redirect_uri=<%=state.origin%>${redirectPath}`,
                 target: '_blank',
                 iconUrl: 'https://superblocks.s3.us-west-2.amazonaws.com/img/integrations/google-login.svg'
               },
@@ -175,7 +175,7 @@ export const GoogleSheetsPlugin = (googleSheetsClientId: string, redirectPath: s
               startVersion: GoogleSheetsPluginVersions.V1,
               endVersion: GoogleSheetsPluginVersions.V6,
               componentType: FormComponentType.ALERT,
-              text: 'You are connected to Google Sheets!',
+              messageTemplate: 'You are connected to Google Sheets!',
               type: 'success',
               showIcon: true,
               display: {
@@ -192,7 +192,7 @@ export const GoogleSheetsPlugin = (googleSheetsClientId: string, redirectPath: s
               componentType: FormComponentType.CUSTOM_COMPONENT,
               childComponentType: FormComponentType.ALERT,
               childComponentsProperties: {
-                text: `You are connected to Google Sheets as $\{authConfig.userEmail\}!`,
+                messageTemplate: `You are connected to Google Sheets as <%=context.getValue('authConfig.userEmail')%>!`,
                 type: 'success',
                 showIcon: true
               },

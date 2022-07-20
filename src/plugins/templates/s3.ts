@@ -1,7 +1,10 @@
-import { EditorLanguage, FormComponentType, InputDataType, Plugin, PluginResponseType, PluginType } from '../../types';
+import { AgentType, EditorLanguage, FormComponentType, InputDataType, Plugin, PluginResponseType, PluginType } from '../../types';
+
+import { getAWSAuthSection } from './shared';
 
 export const S3PluginVersions = {
-  V1: '0.0.1'
+  V1: '0.0.1',
+  V5: '0.0.5'
 };
 
 export enum S3ActionType {
@@ -54,23 +57,27 @@ export const S3Plugin: Plugin = {
             label: 'Region',
             name: 'authentication.custom.region.value',
             startVersion: S3PluginVersions.V1,
-            componentType: FormComponentType.INPUT_TEXT
+            componentType: FormComponentType.INPUT_TEXT,
+            agentType: AgentType.MULTITENANT
           },
           {
             label: 'Access Key ID',
             name: 'authentication.custom.accessKeyID.value',
             startVersion: S3PluginVersions.V1,
-            componentType: FormComponentType.INPUT_TEXT
+            componentType: FormComponentType.INPUT_TEXT,
+            agentType: AgentType.MULTITENANT
           },
           {
             label: 'Secret Key',
             name: 'authentication.custom.secretKey.value',
             startVersion: S3PluginVersions.V1,
             componentType: FormComponentType.INPUT_TEXT,
-            dataType: InputDataType.PASSWORD
+            dataType: InputDataType.PASSWORD,
+            agentType: AgentType.MULTITENANT
           }
         ]
-      }
+      },
+      getAWSAuthSection({ startVersion: S3PluginVersions.V5 })
     ]
   },
   actionTemplate: {

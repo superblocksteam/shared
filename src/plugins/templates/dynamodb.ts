@@ -1,5 +1,15 @@
-import { DropdownOption, EditorLanguage, FormComponentType, InputDataType, Plugin, PluginResponseType, PluginType } from '../../types';
+import {
+  AgentType,
+  DropdownOption,
+  EditorLanguage,
+  FormComponentType,
+  InputDataType,
+  Plugin,
+  PluginResponseType,
+  PluginType
+} from '../../types';
 import { camelCaseToDisplay } from '../../utils';
+import { getAWSAuthSection } from './shared';
 
 export const DynamoDBActions = [
   'getItem',
@@ -70,7 +80,8 @@ function getDynamoDBActionDropdownOptions(): DropdownOption[] {
 }
 
 export const DynamoDBPluginVersions = {
-  V1: '0.0.1'
+  V1: '0.0.1',
+  V4: '0.0.4'
 };
 
 export const DynamoDBPlugin: Plugin = {
@@ -99,23 +110,27 @@ export const DynamoDBPlugin: Plugin = {
             label: 'Region',
             name: 'authentication.custom.region.value',
             startVersion: DynamoDBPluginVersions.V1,
-            componentType: FormComponentType.INPUT_TEXT
+            componentType: FormComponentType.INPUT_TEXT,
+            agentType: AgentType.MULTITENANT
           },
           {
             label: 'Access Key ID',
             name: 'authentication.custom.accessKeyID.value',
             startVersion: DynamoDBPluginVersions.V1,
-            componentType: FormComponentType.INPUT_TEXT
+            componentType: FormComponentType.INPUT_TEXT,
+            agentType: AgentType.MULTITENANT
           },
           {
             label: 'Secret Key',
             name: 'authentication.custom.secretKey.value',
             startVersion: DynamoDBPluginVersions.V1,
             componentType: FormComponentType.INPUT_TEXT,
-            dataType: InputDataType.PASSWORD
+            dataType: InputDataType.PASSWORD,
+            agentType: AgentType.MULTITENANT
           }
         ]
-      }
+      },
+      getAWSAuthSection({ startVersion: DynamoDBPluginVersions.V4 })
     ]
   },
   actionTemplate: {

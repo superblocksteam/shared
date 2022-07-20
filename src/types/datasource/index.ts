@@ -1,6 +1,6 @@
 import { Property } from '../common/property';
 import { Plugin, PluginMetadata } from '../plugin';
-import { AuthConfig, AuthContext, AuthId, AuthType, getAuthId, PublicAuthConfig, RestApiIntegrationAuthType } from './auth';
+import { AuthConfig, AuthContext, AuthId, AuthType, getAuthId, PublicAuthConfig, RestApiIntegrationAuthType, AWSAuthType } from './auth';
 
 // The DTO for the full datasource (ie all fields). This should only be visible
 // to users that can configure the datasource.
@@ -137,6 +137,7 @@ export interface DBConnection {
 }
 
 export type AWSDatasourceConfiguration = BaseDatasourceConfiguration & {
+  awsAuthType?: AWSAuthType;
   authentication?: {
     [key: string]: unknown;
     custom?: {

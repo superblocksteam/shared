@@ -46,7 +46,7 @@ export const GraphQLIntegrationPlugin: Plugin = {
             name: 'path',
             startVersion: GraphQLIntegrationPluginVersions.V1,
             componentType: FormComponentType.DYNAMIC_INPUT_TEXT,
-            placeholder: 'https://www.example.com/api?filter={{Dropdown1.selectedOptionValue}}',
+            placeholder: 'https://swapi-graphql.netlify.app/.netlify/functions/index',
             rules: [{ required: true, message: 'URL is required' }]
           }
         ]

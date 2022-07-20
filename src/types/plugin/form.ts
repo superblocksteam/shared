@@ -1,3 +1,5 @@
+import { AgentType } from '../organization';
+
 export interface FormTemplate {
   sections: FormSection[];
 }
@@ -88,6 +90,7 @@ export interface BaseFormItem {
   hidden?: boolean;
   triggerGetMetadata?: boolean;
   immutable?: boolean;
+  agentType?: AgentType;
 }
 
 export type InitialValue = string | number | boolean | KVPair[];
@@ -170,7 +173,7 @@ export interface DropdownFormItem extends BaseFormItem {
 
 export interface AlertFormItem extends BaseFormItem {
   componentType: FormComponentType.ALERT;
-  text: string;
+  messageTemplate?: string; // supports ERB template, see http://underscorejs.org/#template
   type?: 'success' | 'warning' | 'info' | 'error';
   showIcon?: boolean;
 }
@@ -196,7 +199,7 @@ export interface MetadataDropdownFormItem extends BaseFormItem {
 
 export interface ConnectOAuthButtonFormItem extends BaseFormItem {
   componentType: FormComponentType.CONNECT_OAUTH_BUTTON;
-  href: string;
+  hrefTemplate: string; // supports ERB template, see http://underscorejs.org/#template
   target: string;
   iconUrl?: string;
 }

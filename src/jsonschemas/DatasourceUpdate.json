@@ -227,6 +227,9 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
+        "awsAuthType": {
+          "$ref": "#/definitions/AWSAuthType"
+        },
         "authentication": {
           "type": "object",
           "properties": {
@@ -267,6 +270,14 @@
           "$ref": "#/definitions/PluginVersionMetadata"
         }
       }
+    },
+    "AWSAuthType": {
+      "type": "string",
+      "enum": [
+        "access-key",
+        "token-file",
+        "ec2-instance-metadata"
+      ]
     },
     "EmailDatasourceConfiguration": {
       "type": "object",

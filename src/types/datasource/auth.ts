@@ -80,12 +80,26 @@ export enum GoogleSheetsAuthType {
   SERVICE_ACCOUNT = 'service-account'
 }
 
+export enum AWSAuthType {
+  ACCESS_KEY = 'access-key',
+  TOKEN_FILE = 'token-file',
+  EC2_INSTANCE_METADATA = 'ec2-instance-metadata'
+}
+
+export const awsAuthTypeDisplayName = new Map([
+  [AWSAuthType.ACCESS_KEY, 'Access Key'],
+  [AWSAuthType.TOKEN_FILE, 'Token File'],
+  [AWSAuthType.EC2_INSTANCE_METADATA, 'EC2 Instance Metadata']
+]);
+
+export function getAWSAuthTypeDisplayName(authType: AWSAuthType): string {
+  return awsAuthTypeDisplayName.get(authType) ?? '';
+}
+
 export type AuthType = RestApiIntegrationAuthType | GoogleSheetsAuthType;
 
 export function getDisplayName(authType: AuthType): string {
   switch (authType) {
-    case RestApiIntegrationAuthType.NONE:
-      return 'None';
     case RestApiIntegrationAuthType.BASIC:
       return 'Basic Authentication';
     case RestApiIntegrationAuthType.FIREBASE:
@@ -100,6 +114,7 @@ export function getDisplayName(authType: AuthType): string {
       return 'OAuth2 - Implicit Grant';
     case RestApiIntegrationAuthType.OAUTH2_CODE:
       return 'OAuth2 - Authentication Code';
+    case RestApiIntegrationAuthType.NONE:
     default:
       return 'None';
   }
