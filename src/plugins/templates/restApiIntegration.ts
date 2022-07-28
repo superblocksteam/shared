@@ -79,7 +79,7 @@ export const RestApiIntegrationPlugin: Plugin = {
           },
           {
             label: '',
-            messageTemplate: `HTTP Basic Authentication automatically adds an
+            text: `HTTP Basic Authentication automatically adds an
             \`Authorization: Basic $token\` header, where the token is generated
             based on the given username and password. It will override any other
             Authorization headers.`,
@@ -147,7 +147,7 @@ export const RestApiIntegrationPlugin: Plugin = {
           },
           {
             label: '',
-            messageTemplate: `**Where do I get my firebase credentials and allow access to Superblocks?** [Superblocks - Firebase Docs](https://docs.superblockshq.com/superblocks/security-and-permissions/authenticate-using-firebase-auth)\\
+            text: `**Where do I get my firebase credentials and allow access to Superblocks?** [Superblocks - Firebase Docs](https://docs.superblockshq.com/superblocks/security-and-permissions/authenticate-using-firebase-auth)\\
 Note: REST APIs authenticated with firebase cannot be used in Superblocks Workflows & Scheduled Jobs since both can be called headlessly without user interaction.`,
             name: 'FirebaseAlert',
             startVersion: RestApiIntegrationPluginVersions.V1,
@@ -209,7 +209,7 @@ Note: REST APIs authenticated with firebase cannot be used in Superblocks Workfl
           },
           {
             label: '',
-            messageTemplate: `Use **{{firebase.token}}** below to refer to the firebase
+            text: `Use **{{firebase.token}}** below to refer to the firebase
             authentication token & use **{{firebase.userId}}** to refer to the
             currently authenticated user's ID.`,
             name: 'FirebaseAlert',
@@ -223,7 +223,7 @@ Note: REST APIs authenticated with firebase cannot be used in Superblocks Workfl
           },
           {
             label: '',
-            messageTemplate: `The Implicit OAuth 2.0 flow can be used to migrate off of
+            text: `The Implicit OAuth 2.0 flow can be used to migrate off of
             Single Page Apps if you can't use the Authorization Code flow.`,
             name: 'AuthCodeExplanation',
             startVersion: RestApiIntegrationPluginVersions.V1,
@@ -387,7 +387,7 @@ Note: REST APIs authenticated with firebase cannot be used in Superblocks Workfl
           },
           {
             label: '',
-            messageTemplate: 'Allow-list the Superblocks OAuth callback/redirect URI: `https://app.superblockshq.com/oauth/callback`',
+            text: 'Allow-list the Superblocks OAuth callback/redirect URI: `https://app.superblockshq.com/oauth/callback`',
             name: 'oauth-callback-alert',
             startVersion: RestApiIntegrationPluginVersions.V1,
             componentType: FormComponentType.ALERT,
@@ -399,7 +399,7 @@ Note: REST APIs authenticated with firebase cannot be used in Superblocks Workfl
           },
           {
             label: '',
-            messageTemplate:
+            text:
               'Use **{{oauth.token}}** below to refer to the OAuth authentication token. It is typically used in a header: `Authorization: Bearer {{oauth.token}}`',
             name: 'OAuth2PasswordAlert',
             startVersion: RestApiIntegrationPluginVersions.V1,

@@ -173,6 +173,7 @@ export interface DropdownFormItem extends BaseFormItem {
 
 export interface AlertFormItem extends BaseFormItem {
   componentType: FormComponentType.ALERT;
+  text: string; // Deprecated
   messageTemplate?: string; // supports ERB template, see http://underscorejs.org/#template
   type?: 'success' | 'warning' | 'info' | 'error';
   showIcon?: boolean;

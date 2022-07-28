@@ -57,7 +57,7 @@ export const getAWSAuthSection = (config: { startVersion: string }): FormSection
       },
       {
         label: '',
-        messageTemplate: `This option allows you to use [Service Account Token Volume Projection](https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html) to authorize your On-Premise Agent to connect to your S3 Buckets.`,
+        text: `This option allows you to use [Service Account Token Volume Projection](https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html) to authorize your On-Premise Agent to connect to your S3 Buckets.`,
         name: 'TokenFileAlert',
         startVersion: config.startVersion,
         componentType: FormComponentType.ALERT,
@@ -70,7 +70,7 @@ export const getAWSAuthSection = (config: { startVersion: string }): FormSection
       },
       {
         label: '',
-        messageTemplate: `This option allows you to use [EC2 Instance Metadata](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/iam-roles-for-amazon-ec2.html) to authorize your On-Premise Agent to connect to your S3 Buckets. If you are using [Kube2Iam](https://github.com/jtblin/kube2iam), you would select this option.`,
+        text: `This option allows you to use [EC2 Instance Metadata](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/iam-roles-for-amazon-ec2.html) to authorize your On-Premise Agent to connect to your S3 Buckets. If you are using [Kube2Iam](https://github.com/jtblin/kube2iam), you would select this option.`,
         name: 'EC2InstanceMetadataAlert',
         startVersion: config.startVersion,
         componentType: FormComponentType.ALERT,
