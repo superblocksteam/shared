@@ -175,7 +175,7 @@ export const GoogleSheetsPlugin = (googleSheetsClientId: string, redirectPath: s
               startVersion: GoogleSheetsPluginVersions.V1,
               endVersion: GoogleSheetsPluginVersions.V6,
               componentType: FormComponentType.ALERT,
-              text: 'You are connected to Google Sheets!',
+              messageTemplate: 'You are connected to Google Sheets!',
               type: 'success',
               showIcon: true,
               display: {
