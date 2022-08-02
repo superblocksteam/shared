@@ -147,7 +147,7 @@ export const RestApiIntegrationPlugin: Plugin = {
           },
           {
             label: '',
-            messageTemplate: `**Where do I get my firebase credentials and allow access to Superblocks?** [Superblocks - Firebase Docs](https://docs.superblocks.com/integrations/authenticating-apis/authenticate-using-firebase-auth)\\
+            messageTemplate: `**Where do I get my firebase credentials and allow access to Superblocks?** [Superblocks - Firebase Docs](https://docs.superblockshq.com/superblocks/security-and-permissions/authenticate-using-firebase-auth)\\
 Note: REST APIs authenticated with firebase cannot be used in Superblocks Workflows & Scheduled Jobs since both can be called headlessly without user interaction.`,
             name: 'FirebaseAlert',
             startVersion: RestApiIntegrationPluginVersions.V1,
