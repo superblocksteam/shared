@@ -60,6 +60,7 @@ export interface DiagnosticMetadataTags {
   datasourceId?: string;
   apiId?: string;
   environment?: string;
+  organizationId?: string;
 }
 
 export interface DiagnosticMetadata extends DiagnosticMetadataTags {
