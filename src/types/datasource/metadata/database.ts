@@ -31,8 +31,8 @@ export class Column {
   type: string;
 
   constructor(name: string, type: string) {
-    this.name = name.toLowerCase();
-    this.type = type.toLowerCase();
+    this.name = name;
+    this.type = type;
   }
 }
 

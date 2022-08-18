@@ -128,6 +128,7 @@ export type SnowflakeActionConfiguration = DBActionConfiguration;
 export type WorkflowActionConfiguration = {
   workflow?: string;
   custom?: Record<string, Property>;
+  queryParams?: { key: string; value: unknown }[];
 };
 
 export type ApiActionConfiguration = GraphQLActionConfiguration & RestApiActionConfiguration & RestApiIntegrationActionConfiguration;
