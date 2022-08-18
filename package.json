@@ -1,7 +1,7 @@
 {
   "name": "@superblocksteam/shared",
   "description": "Superblocks Shared Resources",
-  "version": "0.1891.0",
+  "version": "0.1902.0",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
   },
@@ -14,7 +14,7 @@
     "npm": "^8.3.1"
   },
   "scripts": {
-    "build": "npm run build:schemas && npm run clean && tsc && tsc -p tsconfig.browser.json && ./fixup-dists.sh",
+    "build": "npm run clean && tsc && tsc -p tsconfig.browser.json && ./fixup-dists.sh",
     "clean": "rimraf ./dist ./dist-esm *tsbuildinfo",
     "lint": "eslint . --ext ts",
     "lint:fix": "eslint . --ext ts --fix",
@@ -49,8 +49,6 @@
     "@lezer/lr": "0.15.8",
     "@rockset/client": "0.8.23",
     "@types/esprima": "4.0.3",
-    "ajv": "^8.11.0",
-    "ajv-formats": "^2.1.1",
     "json5": "2.2.1",
     "lodash": "4.17.21",
     "minimist": "1.2.6",
