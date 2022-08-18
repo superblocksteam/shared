@@ -1,4 +1,4 @@
-import { EditorLanguage, FormComponentType, InputDataType, Plugin, PluginResponseType, PluginType } from '../../types';
+import { EditorLanguage, FormComponentType, Plugin, PluginResponseType, PluginType } from '../../types';
 
 export const MongoDBPluginVersions = {
   V1: '0.0.1'
@@ -194,8 +194,7 @@ export const MongoDBPlugin: Plugin = {
             label: 'Limit',
             name: 'limit',
             startVersion: MongoDBPluginVersions.V1,
-            componentType: FormComponentType.INPUT_TEXT,
-            dataType: InputDataType.NUMBER,
+            componentType: FormComponentType.DYNAMIC_INPUT_TEXT,
             display: {
               show: {
                 action: [MongoDBOperationType.find]
@@ -210,8 +209,7 @@ export const MongoDBPlugin: Plugin = {
             label: 'Skip',
             name: 'skip',
             startVersion: MongoDBPluginVersions.V1,
-            componentType: FormComponentType.INPUT_TEXT,
-            dataType: InputDataType.NUMBER,
+            componentType: FormComponentType.DYNAMIC_INPUT_TEXT,
             display: {
               show: {
                 action: [MongoDBOperationType.find]

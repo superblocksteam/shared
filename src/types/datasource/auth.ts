@@ -297,12 +297,13 @@ export type ExchangeCodeResponse = {
 
 export type DatasourceAuthState = {
   //TODO: add a unique token to prefent CSRF attack
-  name: string;
+  name: () => string;
   datasourceId: string;
   organizationId: string;
   pluginId: string;
   userEmail: string;
   origin: string;
+  requestedScope: () => string;
 };
 
 export type DeleteDatasourceOnAgentResult = {

@@ -157,7 +157,13 @@ export const GoogleSheetsPlugin = (googleSheetsClientId: string, redirectPath: s
               componentType: FormComponentType.CUSTOM_COMPONENT,
               childComponentType: FormComponentType.CONNECT_OAUTH_BUTTON,
               childComponentsProperties: {
-                hrefTemplate: `https://accounts.google.com/o/oauth2/v2/auth?access_type=offline&scope=<%=context.getValue('authConfig.scope')%>&response_type=code&client_id=${googleSheetsClientId}&state=<%=btoa(JSON.stringify(state))%>&redirect_uri=<%=state.origin%>${redirectPath}`,
+                hrefTemplate: `https://accounts.google.com/o/oauth2/v2/auth?access_type=offline&scope=<%=context.getValue('authConfig.scope')%>&response_type=code&client_id=${googleSheetsClientId}&state=<%=btoa(JSON.stringify(state, function(key, value) {
+                  if (typeof value === 'function') {
+                    return value();
+                  } else {
+                    return value;
+                  }
+                }))%>&redirect_uri=<%=state.origin%>${redirectPath}`,
                 target: '_blank',
                 iconUrl: 'https://superblocks.s3.us-west-2.amazonaws.com/img/integrations/google-login.svg'
               },
