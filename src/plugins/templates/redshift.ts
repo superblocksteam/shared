@@ -3,7 +3,8 @@ import { SQL_INITIAL_TEXT } from './constants';
 
 export const RedshiftPluginVersions = {
   V1: '0.0.1',
-  V2: '0.0.2'
+  V2: '0.0.2',
+  V6: '0.0.6'
 };
 
 export const RedshiftPlugin: Plugin = {
@@ -88,22 +89,27 @@ export const RedshiftPlugin: Plugin = {
         name: 'main',
         items: [
           {
-            label: 'Use Parameterized SQL',
-            name: 'usePreparedSql',
-            startVersion: RedshiftPluginVersions.V2,
-            componentType: FormComponentType.SWITCH,
-            initialValue: false,
-            tooltip: {
-              markdownText: 'This enables the use of JavaScript to generate SQL but also turns off SQL injection protection.'
-            }
-          },
-          {
             label: '', // Query
             name: 'body',
             startVersion: RedshiftPluginVersions.V1,
             componentType: FormComponentType.CODE_EDITOR,
             language: EditorLanguage.SQL,
             initialValue: SQL_INITIAL_TEXT
+          }
+        ]
+      },
+      {
+        name: 'advanced:main',
+        items: [
+          {
+            label: 'Use Parameterized SQL',
+            name: 'usePreparedSql',
+            startVersion: RedshiftPluginVersions.V6,
+            componentType: FormComponentType.SWITCH,
+            initialValue: true,
+            tooltip: {
+              markdownText: 'Using Parameterized SQL provides SQL injection protection but inhibits the use of JavaScript to generate SQL.'
+            }
           }
         ]
       }

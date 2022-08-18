@@ -88,6 +88,7 @@ export function apiTriggerToEntity(trigger: ApiTriggerType): EventEntityType {
 }
 
 export * from './action';
+export * from './resolvedActionProp';
 export * from './schedule';
 export * from './execution';
 export * from './global';

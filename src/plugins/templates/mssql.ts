@@ -3,7 +3,8 @@ import { DB_SQL_INITIAL_TEXT, EditorLanguage, FormComponentType, InputDataType, 
 export const MicrosoftSQLPluginVersions = {
   V1: '0.0.1',
   V2: '0.0.2',
-  V3: '0.0.3'
+  V3: '0.0.3',
+  V6: '0.0.6'
 };
 
 export const MicrosoftSQLPlugin: Plugin = {
@@ -81,22 +82,27 @@ export const MicrosoftSQLPlugin: Plugin = {
         name: 'main',
         items: [
           {
-            label: 'Use Parameterized SQL',
-            name: 'usePreparedSql',
-            startVersion: MicrosoftSQLPluginVersions.V3,
-            componentType: FormComponentType.SWITCH,
-            initialValue: false,
-            tooltip: {
-              markdownText: 'This enables the use of JavaScript to generate SQL but also turns off SQL injection protection.'
-            }
-          },
-          {
             label: '', // Query
             name: 'body',
             startVersion: MicrosoftSQLPluginVersions.V1,
             componentType: FormComponentType.CODE_EDITOR,
             language: EditorLanguage.SQL,
             initialValue: DB_SQL_INITIAL_TEXT
+          }
+        ]
+      },
+      {
+        name: 'advanced:main',
+        items: [
+          {
+            label: 'Use Parameterized SQL',
+            name: 'usePreparedSql',
+            startVersion: MicrosoftSQLPluginVersions.V6,
+            componentType: FormComponentType.SWITCH,
+            initialValue: true,
+            tooltip: {
+              markdownText: 'Using Parameterized SQL provides SQL injection protection but inhibits the use of JavaScript to generate SQL.'
+            }
           }
         ]
       }

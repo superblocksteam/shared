@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { ApiNotificationConfiguration, Global } from '.';
+import { ApiNotificationConfiguration, Global, PlaceholdersInfo } from '.';
 
 // TODO(pbardea): Rename "view mode" everywhere to something more descriptive.
 export const UNPUBLISHED_VIEW_MODE = false;
@@ -112,6 +112,7 @@ export class ExecutionOutput {
   log: string[];
   output: unknown;
   request: RawRequest;
+  placeholdersInfo?: PlaceholdersInfo;
 
   constructor() {
     this.output = {};

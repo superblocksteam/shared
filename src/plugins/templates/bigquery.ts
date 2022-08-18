@@ -3,7 +3,8 @@ import { SERVICE_ACCOUNT_GHOST_TEXT, SQL_INITIAL_TEXT } from './constants';
 
 export const BigQueryPluginVersions = {
   V1: '0.0.1',
-  V2: '0.0.2'
+  V2: '0.0.2',
+  V6: '0.0.6'
 };
 
 export const BigQueryPlugin: Plugin = {
@@ -50,22 +51,27 @@ export const BigQueryPlugin: Plugin = {
         name: 'main',
         items: [
           {
-            label: 'Use Parameterized SQL',
-            name: 'usePreparedSql',
-            startVersion: BigQueryPluginVersions.V2,
-            componentType: FormComponentType.SWITCH,
-            initialValue: false,
-            tooltip: {
-              markdownText: 'This enables the use of JavaScript to generate SQL but also turns off SQL injection protection.'
-            }
-          },
-          {
             label: '', // Query
             name: 'body',
             startVersion: BigQueryPluginVersions.V1,
             componentType: FormComponentType.CODE_EDITOR,
             language: EditorLanguage.SQL,
             initialValue: SQL_INITIAL_TEXT
+          }
+        ]
+      },
+      {
+        name: 'advanced:main',
+        items: [
+          {
+            label: 'Use Parameterized SQL',
+            name: 'usePreparedSql',
+            startVersion: BigQueryPluginVersions.V6,
+            componentType: FormComponentType.SWITCH,
+            initialValue: true,
+            tooltip: {
+              markdownText: 'Using Parameterized SQL provides SQL injection protection but inhibits the use of JavaScript to generate SQL.'
+            }
           }
         ]
       }
