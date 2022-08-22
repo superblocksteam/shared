@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import { ApiResourceTiming } from '../common/timing';
 import { ApiNotificationConfiguration, Global, PlaceholdersInfo } from '.';
 
 // TODO(pbardea): Rename "view mode" everywhere to something more descriptive.
@@ -24,6 +25,7 @@ export interface ApiExecutionResponse {
   apiName?: string;
   context: ExecutionContext;
   notificationConfig?: ApiNotificationConfiguration;
+  timing?: ApiResourceTiming;
 }
 
 export class ExecutionContext {

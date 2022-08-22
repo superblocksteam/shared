@@ -1,3 +1,5 @@
+import { Timing } from './timing';
+
 export class ResponseWrapper<T> {
   responseMeta: ResponseMeta;
   data?: T;
@@ -17,6 +19,7 @@ export class ResponseMeta {
   message: string;
   success?: boolean;
   error?: ErrorDto;
+  timing?: Timing;
 
   constructor({ status, message, success }: { status: number; message: string; success: boolean }) {
     this.status = status;

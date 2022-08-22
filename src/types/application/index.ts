@@ -6,7 +6,8 @@ export interface Application {
   id: string;
   environment: DatasourceEnvironments;
   name: string;
-  icon: string;
+  // Older apps have this field, but it's unused
+  icon?: string;
   color: string;
   organizationId: string;
   pages: PageRef[];

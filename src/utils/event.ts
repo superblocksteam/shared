@@ -36,7 +36,7 @@ export class EventSender {
     // Staging and dev share a rockset workspace
     if (env === EnvEnum.DEV || env === EnvEnum.STAGING || env === EnvEnum.DEMO) {
       this.workspace = 'staging';
-    } else if (env === EnvEnum.PROD) {
+    } else if (env === EnvEnum.PROD || env === EnvEnum.PROD_EU) {
       this.workspace = 'prod';
     } else {
       throw Error(`Unknown environment: ${env}`);

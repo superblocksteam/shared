@@ -1,4 +1,5 @@
 import { ApiLocationContext } from '../api';
+import { ApiResourceTiming } from '../common/timing';
 import { ApiRunStatus } from './apiRunDetails';
 
 export enum AuditLogEntityType {
@@ -24,6 +25,7 @@ export interface AuditLogDetails {
   locationContext?: ApiLocationContext;
   status?: ApiRunStatus;
   error?: string;
+  timing?: ApiResourceTiming;
 }
 
 export type AuditLogDto = {
