@@ -84,7 +84,8 @@ export const MongoDBPlugin: Plugin = {
             tooltip: {
               markdownText:
                 'Operations supported by MongoDB. [Operation Docs](https://docs.mongodb.com/manual/core/transactions-operations/)'
-            }
+            },
+            showSearch: true
           },
           {
             label: 'Collection',

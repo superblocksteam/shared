@@ -169,6 +169,8 @@ export enum EditorLanguage {
 export interface DropdownFormItem extends BaseFormItem {
   componentType: FormComponentType.DROPDOWN;
   options: DropdownOption[];
+  showSearch?: boolean;
+  optionFilterProp?: string;
 }
 
 export interface AlertFormItem extends BaseFormItem {
