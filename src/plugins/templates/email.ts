@@ -10,6 +10,7 @@ export const EmailPluginVersions = {
 };
 
 export enum EmailActionFieldNames {
+  FROM = 'emailFrom',
   TO = 'emailTo',
   CC = 'emailCc',
   BCC = 'emailBcc',
@@ -19,6 +20,16 @@ export enum EmailActionFieldNames {
 }
 
 export const EmailActionFieldsMap: Record<EmailActionFieldNames, FormItem> = {
+  [EmailActionFieldNames.FROM]: {
+    name: EmailActionFieldNames.FROM,
+    label: 'From',
+    startVersion: EmailPluginVersions.V1,
+    // Using the defaults directly since we will have to refactor this plugin when we allow
+    // user specified API key and/or sender through delegation.
+    initialValue: `${EMAIL_INTEGRATION_SENDER_NAME_DEFAULT} <${EMAIL_INTEGRATION_SENDER_ADDRESS_DEFAULT}>`,
+    componentType: FormComponentType.INPUT_TEXT,
+    disabled: true
+  },
   [EmailActionFieldNames.TO]: {
     name: EmailActionFieldNames.TO,
     label: 'To',
