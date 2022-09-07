@@ -19,19 +19,36 @@ export const NopFunc = (): Promise<string> => {
   return new Promise((resolve) => resolve('nop'));
 };
 
+export type RetryOptions<T> = {
+  backoff: Backoff;
+  logger: P.Logger;
+  func: () => Promise<T>;
+  name?: string;
+  doEvery?: () => void;
+  doOnce?: () => void;
+};
+
 export class Retry<T> {
   private _func: () => Promise<T>;
   private _step: number;
   private _backoff: Backoff;
   private _logger: P.Logger;
   private _name: string;
+  private _doEvery: () => void;
+  private _doOnce: () => void;
 
-  constructor(backoff: Backoff, logger: P.Logger, func: () => Promise<T>, name?: string) {
-    this._func = func;
+  constructor(options: RetryOptions<T>) {
+    this._func = options.func;
     this._step = 0;
-    this._backoff = backoff;
-    this._logger = logger;
-    this._name = name ? name : 'unnamed';
+    this._backoff = options.backoff;
+    this._logger = options.logger;
+    this._name = options.name ? options.name : 'unnamed';
+    this._doEvery = options.doEvery || this.noOp;
+    this._doOnce = options.doOnce || this.noOp;
+  }
+
+  private noOp(): void {
+    return;
   }
 
   public step(): number {
@@ -65,6 +82,12 @@ export class Retry<T> {
         logger.info({ err }, 'function execution failed');
         if (err instanceof RetryableError) {
           logger.debug('function IS retryable');
+
+          this._doEvery();
+          if (i === 1) {
+            this._doOnce();
+          }
+
           await this.wait();
           continue;
         }

@@ -12,20 +12,20 @@ describe('step', () => {
   });
 
   it('should correctly implement no backoff', () => {
-    expect(new Retry(NoBackoff, pino(), NopFunc).step()).toEqual(0);
+    expect(new Retry({ backoff: NoBackoff, logger: pino(), func: NopFunc }).step()).toEqual(0);
   });
 
   it('should correctly implement exponential backoff (1/n)', () => {
-    const retry = new Retry(
-      {
+    const retry = new Retry({
+      backoff: {
         duration: 10,
         factor: 2,
         jitter: 0.5,
         limit: Infinity
       },
-      pino(),
-      NopFunc
-    );
+      logger: pino(),
+      func: NopFunc
+    });
 
     expect(retry.step()).toEqual(12.5);
     expect(retry.step()).toEqual(25);
@@ -36,16 +36,16 @@ describe('step', () => {
   });
 
   it('should correctly implement exponential backoff (2/n)', () => {
-    const retry = new Retry(
-      {
+    const retry = new Retry({
+      backoff: {
         duration: 1000,
         factor: 2,
         jitter: 0.5,
         limit: Infinity
       },
-      pino(),
-      NopFunc
-    );
+      logger: pino(),
+      func: NopFunc
+    });
 
     expect(retry.step()).toEqual(1250);
     expect(retry.step()).toEqual(2500);
@@ -56,16 +56,16 @@ describe('step', () => {
   });
 
   it('should correctly implement linear backoff', () => {
-    const retry = new Retry(
-      {
+    const retry = new Retry({
+      backoff: {
         duration: 10,
         factor: 1,
         jitter: 0.5,
         limit: Infinity
       },
-      pino(),
-      NopFunc
-    );
+      logger: pino(),
+      func: NopFunc
+    });
 
     expect(retry.step()).toEqual(12.5);
     expect(retry.step()).toEqual(12.5);
@@ -73,18 +73,18 @@ describe('step', () => {
   });
 
   it('should correctly implement limit', async () => {
-    const retry = new Retry(
-      {
+    const retry = new Retry({
+      backoff: {
         duration: 10,
         factor: 1,
         jitter: 0.5,
         limit: 2
       },
-      pino(),
-      async (): Promise<void> => {
+      logger: pino(),
+      func: async (): Promise<void> => {
         throw new RetryableError();
       }
-    );
+    });
 
     await expect(retry.do()).rejects.toThrow(QuotaError);
   });

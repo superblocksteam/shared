@@ -12,6 +12,7 @@ export const MariaDBPlugin: Plugin = {
   moduleName: 'MariaDBPlugin',
   modulePath: 'plugins/mariadb/MariaDBPlugin',
   iconLocation: 'https://superblocks.s3-us-west-2.amazonaws.com/img/integrations/mariadb.png',
+  docsUrl: 'https://docs.superblocks.com/integrations/connect-integrations/mariadb',
   type: PluginType.DB,
   responseType: PluginResponseType.TABLE,
   hasRawRequest: true,

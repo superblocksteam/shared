@@ -70,6 +70,7 @@ export const GoogleSheetsPlugin = (googleSheetsClientId: string, redirectPath: s
     moduleName: 'GoogleSheetsPlugin',
     modulePath: 'plugins/gsheets/GoogleSheetsPlugin',
     iconLocation: 'https://superblocks.s3-us-west-2.amazonaws.com/img/integrations/gsheets.png',
+    docsUrl: 'https://docs.superblocks.com/integrations/connect-integrations/google-sheets',
     type: PluginType.API,
     responseType: PluginResponseType.TABLE,
     hasRawRequest: false,

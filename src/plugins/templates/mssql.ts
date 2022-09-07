@@ -13,6 +13,7 @@ export const MicrosoftSQLPlugin: Plugin = {
   moduleName: 'MicrosoftSQLPlugin',
   modulePath: 'plugins/mssql/MicrosoftSQLPlugin',
   iconLocation: 'https://superblocks.s3-us-west-2.amazonaws.com/img/integrations/mssql.png',
+  docsUrl: 'https://docs.superblocks.com/integrations/connect-integrations/mssql',
   type: PluginType.DB,
   responseType: PluginResponseType.TABLE,
   hasRawRequest: true,

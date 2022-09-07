@@ -90,6 +90,7 @@ export const DynamoDBPlugin: Plugin = {
   moduleName: 'DynamoDBPlugin',
   modulePath: 'plugins/dynamodb/DynamoDBPlugin',
   iconLocation: 'https://superblocks.s3-us-west-2.amazonaws.com/img/integrations/dynamodb.png',
+  docsUrl: 'https://docs.superblocks.com/integrations/connect-integrations/dynamodb',
   type: PluginType.DB,
   responseType: PluginResponseType.JSON,
   hasRawRequest: true,

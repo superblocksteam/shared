@@ -18,6 +18,7 @@ export const GraphQLPlugin: Plugin = {
   moduleName: 'GraphQLPlugin',
   modulePath: 'plugins/graphql/GraphQLPlugin',
   iconLocation: 'https://superblocks.s3-us-west-2.amazonaws.com/img/integrations/graphql.png',
+  docsUrl: 'https://docs.superblocks.com/integrations/connect-integrations/graphql',
   type: PluginType.API,
   responseType: PluginResponseType.JSON,
   hasRawRequest: true,

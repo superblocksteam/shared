@@ -26,6 +26,7 @@ export const MongoDBPlugin: Plugin = {
   moduleName: 'MongoDBPlugin',
   modulePath: 'plugins/mongodb/MongoDBPlugin',
   iconLocation: 'https://superblocks.s3-us-west-2.amazonaws.com/img/integrations/mongodb.png',
+  docsUrl: 'https://docs.superblocks.com/integrations/connect-integrations/mongodb',
   type: PluginType.DB,
   responseType: PluginResponseType.JSON,
   hasRawRequest: true,

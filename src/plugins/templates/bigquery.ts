@@ -13,6 +13,7 @@ export const BigQueryPlugin: Plugin = {
   moduleName: 'BigqueryPlugin',
   modulePath: 'plugins/bigquery/BigqueryPlugin',
   iconLocation: 'https://superblocks.s3-us-west-2.amazonaws.com/img/integrations/bigquery.png',
+  docsUrl: 'https://docs.superblocks.com/integrations/connect-integrations/bigquery',
   type: PluginType.DB,
   responseType: PluginResponseType.TABLE,
   hasRawRequest: true,

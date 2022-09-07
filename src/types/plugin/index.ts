@@ -10,6 +10,7 @@ export interface Plugin {
   moduleName: string; // The name of the code module that powers the plugin
   modulePath: string; // The location of the module at runtime
   iconLocation: string;
+  docsUrl?: string;
   responseType: PluginResponseType;
   rawRequestName?: string;
   hasRawRequest: boolean; // Temporary until all plugins support a raw response

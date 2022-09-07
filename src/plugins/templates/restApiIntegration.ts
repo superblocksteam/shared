@@ -34,6 +34,7 @@ export const RestApiIntegrationPlugin: Plugin = {
   moduleName: 'RestApiIntegrationPlugin',
   modulePath: 'plugins/restApiIntegration/RestApiIntegrationPlugin',
   iconLocation: 'https://superblocks.s3-us-west-2.amazonaws.com/img/integrations/restapi.png',
+  docsUrl: 'https://docs.superblocks.com/integrations/connect-integrations/rest-apis',
   type: PluginType.API,
   responseType: PluginResponseType.JSON,
   hasRawRequest: true,

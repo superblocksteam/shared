@@ -13,6 +13,7 @@ export const SnowflakePlugin: Plugin = {
   moduleName: 'SnowflakePlugin',
   modulePath: 'plugins/snowflake/SnowflakePlugin',
   iconLocation: 'https://superblocks.s3-us-west-2.amazonaws.com/img/integrations/snowflake.png',
+  docsUrl: 'https://docs.superblocks.com/integrations/connect-integrations/snowflake',
   type: PluginType.DB,
   responseType: PluginResponseType.TABLE,
   hasRawRequest: true,

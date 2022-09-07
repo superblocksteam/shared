@@ -12,6 +12,7 @@ export const PostgresPlugin: Plugin = {
   moduleName: 'PostgresPlugin',
   modulePath: 'plugins/postgres/PostgresPlugin',
   iconLocation: 'https://superblocks.s3-us-west-2.amazonaws.com/img/integrations/postgres.png',
+  docsUrl: 'https://docs.superblocks.com/integrations/connect-integrations/postgres',
   type: PluginType.DB,
   responseType: PluginResponseType.TABLE,
   hasRawRequest: true,

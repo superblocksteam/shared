@@ -10,6 +10,7 @@ export const RocksetPlugin: Plugin = {
   moduleName: 'RocksetPlugin',
   modulePath: 'plugins/rockset/RocksetPlugin',
   iconLocation: 'https://superblocks.s3-us-west-2.amazonaws.com/img/integrations/rockset.png',
+  docsUrl: 'https://docs.superblocks.com/integrations/connect-integrations/rockset',
   type: PluginType.DB,
   responseType: PluginResponseType.TABLE,
   hasRawRequest: true,

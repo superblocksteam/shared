@@ -12,6 +12,7 @@ export const MySQLPlugin: Plugin = {
   moduleName: 'MySQLPlugin',
   modulePath: 'plugins/mysql/MySQLPlugin',
   iconLocation: 'https://superblocks.s3-us-west-2.amazonaws.com/img/integrations/mysql.png',
+  docsUrl: 'https://docs.superblocks.com/integrations/connect-integrations/mysql',
   type: PluginType.DB,
   responseType: PluginResponseType.TABLE,
   hasRawRequest: true,

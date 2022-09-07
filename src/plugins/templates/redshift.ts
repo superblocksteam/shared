@@ -13,6 +13,7 @@ export const RedshiftPlugin: Plugin = {
   moduleName: 'RedshiftPlugin',
   modulePath: 'plugins/redshift/RedshiftPlugin',
   iconLocation: 'https://superblocks.s3-us-west-2.amazonaws.com/img/integrations/redshift.png',
+  docsUrl: 'https://docs.superblocks.com/integrations/connect-integrations/redshift',
   type: PluginType.DB,
   responseType: PluginResponseType.TABLE,
   hasRawRequest: true,

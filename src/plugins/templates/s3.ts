@@ -37,6 +37,7 @@ export const S3Plugin: Plugin = {
   moduleName: 'S3Plugin',
   modulePath: 'plugins/s3/S3Plugin',
   iconLocation: 'https://superblocks.s3-us-west-2.amazonaws.com/img/integrations/s3.png',
+  docsUrl: 'https://docs.superblocks.com/integrations/connect-integrations/s3',
   type: PluginType.API,
   responseType: PluginResponseType.JSON,
   hasRawRequest: true,
