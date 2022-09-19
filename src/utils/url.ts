@@ -183,3 +183,16 @@ export const extractParamsWithPrefix = (params: Record<string, string>, prefix: 
   });
   return paramsWithPrefix;
 };
+
+export const buildSuperblocksDomainURL = (options: {
+  domain: string;
+  subdomain: string;
+  scheme: string;
+  port: string;
+  path: string;
+  hostOverride: string;
+}): string => {
+  return `${options.scheme}://${options.hostOverride === '' ? `${options.subdomain}.${options.domain}` : options.hostOverride}:${
+    options.port
+  }${options.path}`;
+};

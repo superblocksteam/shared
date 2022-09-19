@@ -1,7 +1,7 @@
 {
   "name": "@superblocksteam/shared",
   "description": "Superblocks Shared Resources",
-  "version": "0.2073.0",
+  "version": "0.2126.0",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
   },
@@ -47,6 +47,7 @@
   },
   "dependencies": {
     "@lezer/lr": "0.15.8",
+    "@opentelemetry/semantic-conventions": "^1.6.0",
     "@rockset/client": "0.8.23",
     "@types/esprima": "4.0.3",
     "json5": "2.2.1",
