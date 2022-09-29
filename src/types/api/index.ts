@@ -51,7 +51,7 @@ export type ApiDetails = {
 export type ApiDefinition = {
   api: Api;
   orgApiKey: string; // to authenticate dependent workflows
-  organizationId?: string; // for audit logging
+  organizationId?: string; // for traces
   datasources: Record<string, DatasourceDto>;
   plugins: Record<string, Plugin>;
   global: Global;
@@ -68,6 +68,7 @@ export type ApiLocationContext = {
 
 export type ApiDefinitionMetadata = {
   requester: string;
+  organizationName?: string;
 };
 
 export enum ApiTriggerType {

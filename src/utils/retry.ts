@@ -1,3 +1,4 @@
+import { Tracer, Span, SpanOptions } from '@opentelemetry/api';
 import P from 'pino';
 import { RetryableError, QuotaError } from '../errors';
 
@@ -22,20 +23,26 @@ export const NopFunc = (): Promise<string> => {
 export type RetryOptions<T> = {
   backoff: Backoff;
   logger: P.Logger;
-  func: () => Promise<T>;
+  func: (_?: number) => Promise<T>;
   name?: string;
   doEvery?: () => void;
   doOnce?: () => void;
+  tracer?: Tracer;
+  spanOptions?: SpanOptions;
+  spanName?: string;
 };
 
 export class Retry<T> {
-  private _func: () => Promise<T>;
+  private _func: (_?: number) => Promise<T>;
   private _step: number;
   private _backoff: Backoff;
   private _logger: P.Logger;
   private _name: string;
   private _doEvery: () => void;
   private _doOnce: () => void;
+  private _tracer: Tracer | undefined;
+  private _spanOptions: SpanOptions;
+  private _spanName: string;
 
   constructor(options: RetryOptions<T>) {
     this._func = options.func;
@@ -45,6 +52,9 @@ export class Retry<T> {
     this._name = options.name ? options.name : 'unnamed';
     this._doEvery = options.doEvery || this.noOp;
     this._doOnce = options.doOnce || this.noOp;
+    this._tracer = options.tracer;
+    this._spanOptions = options.spanOptions || {};
+    this._spanName = options.spanName || '';
   }
 
   private noOp(): void {
@@ -71,13 +81,20 @@ export class Retry<T> {
   }
 
   public async do(): Promise<T> {
-    let i = 0;
+    if (this._tracer) {
+      return this._tracer.startActiveSpan(this._spanName, this._spanOptions, async (span) => this._do(span));
+    } else {
+      return this._do();
+    }
+  }
 
+  private async _do(span?: Span): Promise<T> {
+    let i = 0;
     while (i++ < this._backoff.limit) {
       const logger = this._logger.child({ name: this._name, iteration: this._step + 1 });
       try {
         logger.info('executing function');
-        return await this._func();
+        return await this._func(i - 1);
       } catch (err) {
         logger.info({ err }, 'function execution failed');
         if (err instanceof RetryableError) {
@@ -93,6 +110,10 @@ export class Retry<T> {
         }
         logger.debug('function IS NOT retryable');
         throw err;
+      } finally {
+        if (span) {
+          span.end();
+        }
       }
     }
 

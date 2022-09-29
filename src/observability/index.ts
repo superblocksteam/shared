@@ -2,6 +2,7 @@ import { SemanticAttributes } from '@opentelemetry/semantic-conventions';
 
 // SUPERBLOCKS ORGANZIATION
 export const OBS_TAG_ORG_ID = 'organization-id';
+export const OBS_TAG_ORG_NAME = 'organization-name';
 export const OBS_TAG_USER_EMAIL = 'user-email';
 
 // SUPERBLOCKS RESOURCE
@@ -41,6 +42,7 @@ export const OBS_TAG_NET_PEER_IP = SemanticAttributes.NET_PEER_IP;
 // If you don't want to import a bunch of stuff...
 export const OBS_TAGS = {
   ORG_ID: OBS_TAG_ORG_ID,
+  ORG_NAME: OBS_TAG_ORG_NAME,
   USER_EMAIL: OBS_TAG_USER_EMAIL,
   RESOURCE_TYPE: OBS_TAG_RESOURCE_TYPE,
   RESOURCE_ID: OBS_TAG_RESOURCE_ID,

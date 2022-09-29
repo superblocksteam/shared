@@ -1,4 +1,4 @@
-import { GoogleSheetsFormatType } from '../../plugins';
+import { GoogleSheetsDestinationType, GoogleSheetsFormatType } from '../../plugins';
 import { Property } from '../common/property';
 import { RestApiIntegrationAuthType } from '../datasource';
 import { PluginMetadata, RestApiBodyDataType } from '../plugin';
@@ -19,12 +19,17 @@ export type Action = {
 };
 
 export type GoogleSheetsActionConfiguration = {
-  spreadsheetId?: string;
-  sheetTitle?: string;
+  spreadsheetId: string;
+  sheetTitle: string;
   range?: string;
+  rowNumber?: number;
   extractFirstRowHeader?: boolean;
+  headerRowNumber?: number;
   format?: GoogleSheetsFormatType;
   data?: string;
+  preserveHeaderRow?: boolean;
+  includeHeaderRow?: boolean;
+  writeToDestinationType?: GoogleSheetsDestinationType;
 };
 
 export type DBActionConfiguration = {

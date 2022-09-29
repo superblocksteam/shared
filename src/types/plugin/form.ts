@@ -127,6 +127,7 @@ export interface InputFormItem extends BaseFormItem {
   componentType: FormComponentType.INPUT_TEXT;
   placeholder?: string;
   dataType?: InputDataType;
+  minNumber?: number;
 }
 
 export interface DynamicInputFormItem extends BaseFormItem {

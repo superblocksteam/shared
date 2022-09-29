@@ -4,6 +4,7 @@ import {
   FormComponentType,
   GoogleSheetsAuthType,
   GoogleSheetsDatasourceConfiguration,
+  InputDataType,
   Plugin,
   PluginResponseType,
   PluginType,
@@ -18,7 +19,9 @@ export const GoogleSheetsPluginVersions = {
   V4: '0.0.4',
   V5: '0.0.5',
   V6: '0.0.6',
-  V7: '0.0.7'
+  V7: '0.0.7',
+  V14: '0.0.14',
+  V15: '0.0.15'
 };
 
 export enum GoogleSheetsFormatType {
@@ -30,13 +33,17 @@ export enum GoogleSheetsFormatType {
 export enum GoogleSheetsActionType {
   READ_SPREADSHEET = 'READ_SPREADSHEET',
   READ_SPREADSHEET_RANGE = 'READ_SPREADSHEET_RANGE',
-  APPEND_SPREADSHEET = 'APPEND_SPREADSHEET'
+  APPEND_SPREADSHEET = 'APPEND_SPREADSHEET',
+  CREATE_SPREADSHEET_ROWS = 'CREATE_SPREADSHEET_ROWS',
+  CLEAR_SPREADSHEET = 'CLEAR_SPREADSHEET'
 }
 
 export const GOOGLE_SHEETS_ACTION_DISPLAY_NAMES: Record<GoogleSheetsActionType, string> = {
   [GoogleSheetsActionType.READ_SPREADSHEET]: 'Read the whole spreadsheet',
   [GoogleSheetsActionType.READ_SPREADSHEET_RANGE]: 'Read from a range (e.g. A1:D100)',
-  [GoogleSheetsActionType.APPEND_SPREADSHEET]: 'Append rows to the spreadsheet'
+  [GoogleSheetsActionType.APPEND_SPREADSHEET]: 'Append rows to the spreadsheet (deprecated)',
+  [GoogleSheetsActionType.CREATE_SPREADSHEET_ROWS]: 'Create spreadsheet row(s)',
+  [GoogleSheetsActionType.CLEAR_SPREADSHEET]: 'Clear the spreadsheet'
 };
 
 export const GOOGLE_SHEETS_PLUGIN_ID = 'gsheets';
@@ -62,6 +69,11 @@ export const getGsheetsAuthDisplayName = (authType: GoogleSheetsAuthType): strin
       return 'None';
   }
 };
+
+export enum GoogleSheetsDestinationType {
+  ROW_NUMBER = 'ROW_NUMBER',
+  APPEND = 'APPEND'
+}
 
 export const GoogleSheetsPlugin = (googleSheetsClientId: string, redirectPath: string): Plugin => {
   return {
@@ -115,7 +127,7 @@ export const GoogleSheetsPlugin = (googleSheetsClientId: string, redirectPath: s
         },
         {
           name: 'auth',
-          borderThreshold: 1,
+          borderThreshold: 0,
           items: [
             {
               label: 'Authentication',
@@ -252,6 +264,7 @@ export const GoogleSheetsPlugin = (googleSheetsClientId: string, redirectPath: s
               label: 'Action',
               name: 'action',
               startVersion: GoogleSheetsPluginVersions.V1,
+              endVersion: GoogleSheetsPluginVersions.V14,
               componentType: FormComponentType.DROPDOWN,
               initialValue: GoogleSheetsActionType.READ_SPREADSHEET,
               rules: [{ required: true }],
@@ -269,10 +282,51 @@ export const GoogleSheetsPlugin = (googleSheetsClientId: string, redirectPath: s
                 {
                   key: GoogleSheetsActionType.APPEND_SPREADSHEET,
                   value: GoogleSheetsActionType.APPEND_SPREADSHEET,
-                  displayName: GOOGLE_SHEETS_ACTION_DISPLAY_NAMES[GoogleSheetsActionType.APPEND_SPREADSHEET]
+                  displayName: 'Append rows to the spreadsheet'
                 }
               ]
             },
+            {
+              label: 'Action',
+              name: 'action',
+              startVersion: GoogleSheetsPluginVersions.V15,
+              componentType: FormComponentType.DROPDOWN,
+              initialValue: GoogleSheetsActionType.READ_SPREADSHEET,
+              rules: [{ required: true }],
+              options: [
+                {
+                  key: GoogleSheetsActionType.READ_SPREADSHEET,
+                  value: GoogleSheetsActionType.READ_SPREADSHEET,
+                  displayName: GOOGLE_SHEETS_ACTION_DISPLAY_NAMES[GoogleSheetsActionType.READ_SPREADSHEET]
+                },
+                {
+                  key: GoogleSheetsActionType.READ_SPREADSHEET_RANGE,
+                  value: GoogleSheetsActionType.READ_SPREADSHEET_RANGE,
+                  displayName: GOOGLE_SHEETS_ACTION_DISPLAY_NAMES[GoogleSheetsActionType.READ_SPREADSHEET_RANGE]
+                },
+                {
+                  key: GoogleSheetsActionType.CREATE_SPREADSHEET_ROWS,
+                  value: GoogleSheetsActionType.CREATE_SPREADSHEET_ROWS,
+                  displayName: GOOGLE_SHEETS_ACTION_DISPLAY_NAMES[GoogleSheetsActionType.CREATE_SPREADSHEET_ROWS]
+                },
+                {
+                  key: GoogleSheetsActionType.CLEAR_SPREADSHEET,
+                  value: GoogleSheetsActionType.CLEAR_SPREADSHEET,
+                  displayName: GOOGLE_SHEETS_ACTION_DISPLAY_NAMES[GoogleSheetsActionType.CLEAR_SPREADSHEET]
+                },
+                {
+                  key: GoogleSheetsActionType.APPEND_SPREADSHEET,
+                  value: GoogleSheetsActionType.APPEND_SPREADSHEET,
+                  displayName: GOOGLE_SHEETS_ACTION_DISPLAY_NAMES[GoogleSheetsActionType.APPEND_SPREADSHEET]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          name: 'Spreadsheet information',
+          borderThreshold: 0,
+          items: [
             {
               label: 'Spreadsheet',
               name: 'spreadsheetId',
@@ -288,7 +342,9 @@ export const GoogleSheetsPlugin = (googleSheetsClientId: string, redirectPath: s
                   action: [
                     GoogleSheetsActionType.READ_SPREADSHEET,
                     GoogleSheetsActionType.READ_SPREADSHEET_RANGE,
-                    GoogleSheetsActionType.APPEND_SPREADSHEET
+                    GoogleSheetsActionType.APPEND_SPREADSHEET,
+                    GoogleSheetsActionType.CREATE_SPREADSHEET_ROWS,
+                    GoogleSheetsActionType.CLEAR_SPREADSHEET
                   ]
                 }
               },
@@ -313,7 +369,9 @@ export const GoogleSheetsPlugin = (googleSheetsClientId: string, redirectPath: s
                   action: [
                     GoogleSheetsActionType.READ_SPREADSHEET,
                     GoogleSheetsActionType.READ_SPREADSHEET_RANGE,
-                    GoogleSheetsActionType.APPEND_SPREADSHEET
+                    GoogleSheetsActionType.APPEND_SPREADSHEET,
+                    GoogleSheetsActionType.CREATE_SPREADSHEET_ROWS,
+                    GoogleSheetsActionType.CLEAR_SPREADSHEET
                   ]
                 }
               },
@@ -337,6 +395,66 @@ export const GoogleSheetsPlugin = (googleSheetsClientId: string, redirectPath: s
               }
             },
             {
+              label: 'Include a header row in this sheet',
+              name: 'includeHeaderRow',
+              startVersion: GoogleSheetsPluginVersions.V15,
+              componentType: FormComponentType.SWITCH,
+              initialValue: true,
+              display: {
+                show: {
+                  action: [GoogleSheetsActionType.CREATE_SPREADSHEET_ROWS]
+                }
+              }
+            },
+            {
+              label: 'Preserve Table header',
+              name: 'preserveHeaderRow',
+              startVersion: GoogleSheetsPluginVersions.V15,
+              componentType: FormComponentType.SWITCH,
+              initialValue: true,
+              display: {
+                show: {
+                  action: [GoogleSheetsActionType.CLEAR_SPREADSHEET]
+                }
+              }
+            },
+            {
+              label: 'Header row number',
+              name: 'headerRowNumber',
+              startVersion: GoogleSheetsPluginVersions.V15,
+              componentType: FormComponentType.INPUT_TEXT,
+              dataType: InputDataType.NUMBER,
+              minNumber: 1,
+              initialValue: 1,
+              display: {
+                show: {
+                  action: [GoogleSheetsActionType.CLEAR_SPREADSHEET],
+                  preserveHeaderRow: ['true']
+                }
+              }
+            },
+            {
+              label: 'Header row number',
+              name: 'headerRowNumber',
+              startVersion: GoogleSheetsPluginVersions.V15,
+              componentType: FormComponentType.INPUT_TEXT,
+              dataType: InputDataType.NUMBER,
+              minNumber: 1,
+              initialValue: 1,
+              display: {
+                show: {
+                  action: [GoogleSheetsActionType.CREATE_SPREADSHEET_ROWS],
+                  includeHeaderRow: ['true']
+                }
+              }
+            }
+          ]
+        },
+        {
+          name: 'Read options',
+          borderThreshold: 0,
+          items: [
+            {
               label: 'Data range',
               name: 'range',
               startVersion: GoogleSheetsPluginVersions.V1,
@@ -350,11 +468,95 @@ export const GoogleSheetsPlugin = (googleSheetsClientId: string, redirectPath: s
               tooltip: {
                 markdownText: 'Range of cells to read from'
               }
+            }
+          ]
+        },
+        {
+          name: 'Write options',
+          borderThreshold: 0,
+          items: [
+            {
+              label: 'Write location',
+              name: 'writeToDestinationType',
+              startVersion: GoogleSheetsPluginVersions.V15,
+              componentType: FormComponentType.DROPDOWN,
+              display: {
+                show: {
+                  action: [GoogleSheetsActionType.CREATE_SPREADSHEET_ROWS]
+                }
+              },
+              options: [
+                {
+                  key: GoogleSheetsDestinationType.APPEND,
+                  value: GoogleSheetsDestinationType.APPEND,
+                  displayName: 'Append data starting at the first empty row'
+                },
+                {
+                  key: GoogleSheetsDestinationType.ROW_NUMBER,
+                  value: GoogleSheetsDestinationType.ROW_NUMBER,
+                  displayName: 'Replace data starting at a specific row'
+                }
+              ],
+              initialValue: GoogleSheetsDestinationType.APPEND,
+              rules: [{ required: true, message: 'Write location is required' }]
+            },
+            {
+              label: 'Starting row number',
+              name: 'rowNumber',
+              startVersion: GoogleSheetsPluginVersions.V15,
+              componentType: FormComponentType.INPUT_TEXT,
+              dataType: InputDataType.NUMBER,
+              minNumber: 1,
+              rules: [{ required: true, message: 'Starting row number is required' }],
+              display: {
+                show: {
+                  action: [GoogleSheetsActionType.CREATE_SPREADSHEET_ROWS],
+                  writeToDestinationType: [GoogleSheetsDestinationType.ROW_NUMBER]
+                }
+              }
+            }
+          ]
+        },
+        {
+          name: 'Data to write',
+          items: [
+            {
+              label: 'Rows to append',
+              name: 'data',
+              startVersion: GoogleSheetsPluginVersions.V15,
+              componentType: FormComponentType.CODE_EDITOR,
+              language: EditorLanguage.JSON,
+              placeholder: `[
+  {
+    "name": "Billie Eilish",
+    "email": "bad_guy@gmail.com",
+    "date_joined": "2019-01-06"
+  },
+  {
+    "name": "Katy Perry",
+    "email": "kaycat@hotmail.com",
+    "date_joined": "2019-01-06"
+  }
+]`,
+              style: {
+                minHeight: '350px'
+              },
+              display: {
+                show: {
+                  action: [GoogleSheetsActionType.APPEND_SPREADSHEET, GoogleSheetsActionType.CREATE_SPREADSHEET_ROWS]
+                }
+              },
+              tooltip: {
+                markdownText:
+                  'Write rows either at the end of the spreadsheet or at the specified row number. [See an example in docs](https://docs.superblocks.com/integrations/connect-integrations/google-sheets)'
+              },
+              rules: [{ required: true, message: 'An array of one or more row objects is required' }]
             },
             {
               label: 'Rows to append',
               name: 'data',
               startVersion: GoogleSheetsPluginVersions.V2,
+              endVersion: GoogleSheetsPluginVersions.V14,
               componentType: FormComponentType.CODE_EDITOR,
               language: EditorLanguage.JSON,
               placeholder: `[
@@ -381,7 +583,7 @@ export const GoogleSheetsPlugin = (googleSheetsClientId: string, redirectPath: s
                 markdownText:
                   'Append rows at the end of the spreadsheet. [See an example in docs](https://docs.superblocks.com/integrations/connect-integrations/google-sheets)'
               },
-              rules: [{ required: true, message: 'Rows to append are required' }]
+              rules: [{ required: true, message: 'An array of one or more row objects is required' }]
             }
           ]
         }

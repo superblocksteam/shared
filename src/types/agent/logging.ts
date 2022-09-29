@@ -15,6 +15,7 @@ export type LogFields = {
   resourceType: EventEntityType;
   organizationId: string;
   // Optional (global)
+  organizationName?: string;
   correlationId?: string;
   environment?: string;
   resourceName?: string;
