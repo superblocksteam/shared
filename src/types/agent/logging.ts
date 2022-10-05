@@ -18,6 +18,7 @@ export type LogFields = {
   organizationName?: string;
   correlationId?: string;
   environment?: string;
+  eventType?: string;
   resourceName?: string;
   resourceAction?: string;
   userEmail?: string;

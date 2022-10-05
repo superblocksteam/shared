@@ -10,6 +10,7 @@ export const OBS_TAG_RESOURCE_TYPE = 'resource-type';
 export const OBS_TAG_RESOURCE_ID = 'resource-id';
 export const OBS_TAG_RESOURCE_NAME = 'resource-name';
 export const OBS_TAG_RESOURCE_ACTION = 'resource-action';
+export const OBS_TAG_EVENT_TYPE = 'event-type';
 export const OBS_TAG_PARENT_ID = 'parent-id';
 export const OBS_TAG_PARENT_NAME = 'parent-name';
 export const OBS_TAG_PARENT_TYPE = 'parent-type';
@@ -48,6 +49,7 @@ export const OBS_TAGS = {
   RESOURCE_ID: OBS_TAG_RESOURCE_ID,
   RESOURCE_NAME: OBS_TAG_RESOURCE_NAME,
   RESOURCE_ACTION: OBS_TAG_RESOURCE_ACTION,
+  EVENT_TYPE: OBS_TAG_EVENT_TYPE,
   PARENT_ID: OBS_TAG_PARENT_ID,
   PARENT_NAME: OBS_TAG_PARENT_NAME,
   PARENT_TYPE: OBS_TAG_PARENT_TYPE,

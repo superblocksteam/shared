@@ -68,7 +68,7 @@ export class EventSender {
         data: [event]
       });
     } catch (err) {
-      this._instance.logger.error(`EventSender failed to send to Rockset: ${err}`);
+      this._instance.logger.error(`EventSender failed to send to Rockset: ${JSON.stringify(err)}`);
     }
   }
 }

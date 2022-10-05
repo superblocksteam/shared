@@ -30,6 +30,7 @@ export interface AuditLogDetails {
 
 export type AuditLogDto = {
   id?: string;
+  name?: string;
   entityId: string;
   entityType: AuditLogEntityType;
   organizationId?: string;
