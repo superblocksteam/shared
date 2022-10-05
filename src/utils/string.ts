@@ -7,9 +7,9 @@ export const jsonPrettyPrint = (obj: unknown): string => {
 };
 
 export const EmailRegexString =
-  '^(([^<>()[\\].,;:\\s@\\"]+(\\.[^<>()[\\]\\.,;:\\s@\\"]+)*)|(\\".+\\"))@(([^<>()[\\]\\.,;:\\s@\\"]+\\.)+[^<>()[\\]\\.,;:\\s@\\"]{2,})$';
+  '(([^<>()[\\].,;:\\s@\\"]+(\\.[^<>()[\\]\\.,;:\\s@\\"]+)*)|(\\".+\\"))@(([^<>()[\\]\\.,;:\\s@\\"]+\\.)+[^<>()[\\]\\.,;:\\s@\\"]{2,})';
 
-const EmailRegex = new RegExp(EmailRegexString);
+const EmailRegexComplete = new RegExp(`^${EmailRegexString}$`);
 export const validateEmail = (email: string): boolean => {
-  return EmailRegex.test(email);
+  return EmailRegexComplete.test(email);
 };
