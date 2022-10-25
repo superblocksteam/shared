@@ -1,6 +1,8 @@
 import { get, isFunction, isPlainObject } from 'lodash';
+import type { TreeCursor } from '@lezer/common';
 import type { LRParser } from '@lezer/lr';
 import type { Token, TokenizeOptions } from 'esprima';
+import type { SourceLocation } from 'estree';
 
 export type EvaluationPair = {
   binding: string;
@@ -10,21 +12,28 @@ export type EvaluationPair = {
     start: number;
     end: number;
   };
+  // How many tokens were consumed
+  tokenIndex?: number;
 };
 
 export type PythonParser = LRParser;
+
+type TokenWithRangeAndLoc = Token & {
+  range?: [number, number];
+  loc?: SourceLocation;
+};
 
 export const extractJsEvaluationPairsWithTokenizer = (
   jsSnippet: string,
   entitiesToExtract: Set<string>,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   dataTree: Record<string, any>,
-  tokenize: (input: string, config?: TokenizeOptions) => Token[]
+  tokenize: (input: string, config?: TokenizeOptions) => TokenWithRangeAndLoc[]
 ): EvaluationPair[] => {
-  let tokens: Token[] = [];
+  let tokens: TokenWithRangeAndLoc[] = [];
   const ret: EvaluationPair[] = [];
   try {
-    tokens = tokenize(jsSnippet, { range: true });
+    tokens = tokenize(jsSnippet, { range: true, loc: true });
   } catch (e) {
     // Swallow the error and skip tokenization, let the backend vm handle javascript parsing
     return ret;
@@ -34,10 +43,26 @@ export const extractJsEvaluationPairsWithTokenizer = (
   for (let i = 0; i < tokens.length; i++) {
     switch (tokens[i].type) {
       case 'Identifier': {
+        const prevLine = tokens[i - 1]?.loc?.end.line;
+        const currentLine = tokens[i]?.loc?.end.line;
+        if (prevLine && currentLine && prevLine < currentLine) {
+          // Handle automatic semicolon insertion such as when previous token ends with ]
+          canCapture = true;
+        }
+
         if (entitiesToExtract.has(tokens[i].value) && canCapture) {
+          // Skip when the identifier is part of a key: value
+          const nextToken = tokens[i + 1]?.value;
+          if (nextToken === ':' || nextToken === '=') break;
           // We have found the first token to capture the entity path
-          ret.push(extractEntity(i, tokens, dataTree));
-          canCapture = false;
+          const output = extractEntity(i, tokens, dataTree);
+          ret.push(output);
+          // Skip ahead
+          if (output.tokenIndex && output.tokenIndex > i) {
+            // with the ++ increment this makes sure we start at the tokenIndex
+            i = output.tokenIndex - 1;
+          }
+          canCapture = true;
         }
         break;
       }
@@ -56,9 +81,9 @@ export const extractJsEvaluationPairsWithTokenizer = (
 
 // TODO: Move test for this into shared.
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const extractEntity = (indexToStart: number, tokens: Array<Token>, dataTree: Record<string, any>): EvaluationPair => {
+export const extractEntity = (indexToStart: number, tokens: Array<TokenWithRangeAndLoc>, dataTree: Record<string, any>): EvaluationPair => {
   const currentPropertyPath: string[] = [];
-  let previousToken;
+  let previousToken: TokenWithRangeAndLoc | null = null;
   let done = false; // cant do break out of switch without state variable
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let entity: any;
@@ -66,6 +91,15 @@ export const extractEntity = (indexToStart: number, tokens: Array<Token>, dataTr
     switch (tokens[j].type) {
       case 'Identifier': {
         const val = tokens[j].value;
+        const prevLine = previousToken?.loc?.end.line;
+        const currentLine = tokens[j]?.loc?.end.line;
+        if (prevLine && currentLine && prevLine < currentLine) {
+          // Detect newlines that would insert a semicolon automatically
+          done = true;
+          // Update token position to previous- used for return values
+          j--;
+          break;
+        }
         // We need to check hasOwnProperty to avoid prototype functions
         // like .map or .trim. This works on all primitives except null or undefined,
         // but we actually don't want this on arrays that have prototype methods
@@ -160,7 +194,8 @@ export const extractEntity = (indexToStart: number, tokens: Array<Token>, dataTr
       start: tokens[indexToStart].range[0],
       // @ts-ignore: range is added to token as a result of tokenization config
       end: previousToken.range[1]
-    }
+    },
+    tokenIndex: indexToStart + currentPropertyPath.length
   };
 };
 
@@ -187,6 +222,20 @@ export const extractPythonEvaluationPairs = (
       case 'VariableName': {
         const text = code.substring(cursor.from, cursor.to);
         if (!isCapturing && entities.has(text)) {
+          let isKeyValuePair = false;
+          let isAssignment = false;
+          // This is a special case. In python it is valid to write { Widget1: "value" },
+          // which is equivalent to the Javascript { [Widget1]: "value" }.
+          // We will skip the binding extraction in this case because it's more likely that
+          // the user has named a local variable the same as a global variable.
+          if (cursor.nextSibling()) {
+            const nextName = (cursor as TreeCursor).name;
+            isKeyValuePair = nextName === ':';
+            isAssignment = nextName === 'AssignOp';
+            cursor.prevSibling();
+          }
+          if (isKeyValuePair || isAssignment) break;
+
           if (entity) {
             // We need to check hasOwnProperty to avoid prototype functions
             // like .map or .trim. This works on all primitives except null or undefined

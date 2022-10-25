@@ -572,7 +572,7 @@ Note: REST APIs authenticated with firebase cannot be used in Superblocks Workfl
             name: RestApiFields.FORM_DATA,
             label: getRestApiBodyLabel(RestApiBodyDataType.FORM),
             startVersion: RestApiIntegrationPluginVersions.V8,
-            componentType: FormComponentType.FIELD_LIST,
+            componentType: FormComponentType.FIELD_LIST_FORM,
             display: {
               show: {
                 bodyType: [RestApiBodyDataType.FORM]

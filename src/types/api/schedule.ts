@@ -50,7 +50,7 @@ export class ScheduleConfig {
   static default(): ScheduleConfig {
     return new ScheduleConfig({
       frequency: 1,
-      interval: Interval.Hour,
+      interval: Interval.Month,
       time: midnight(),
       dayOfMonth: 1,
       daysOfWeek: [true, false, false, false, false, false, false]

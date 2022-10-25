@@ -38,6 +38,7 @@ export enum FormComponentType {
   DYNAMIC_INPUT_TEXT = 'DYNAMIC_INPUT_TEXT',
   CODE_EDITOR = 'CODE_EDITOR',
   FIELD_LIST = 'FIELD_LIST',
+  FIELD_LIST_FORM = 'FIELD_LIST_FORM',
   DYNAMIC_FIELD_LIST = 'DYNAMIC_FIELD_LIST',
   DROPDOWN = 'DROPDOWN',
   DYNAMIC_DROPDOWN = 'DYNAMIC_DROPDOWN',
@@ -109,6 +110,7 @@ export interface DefaultFormItem extends BaseFormItem {
     | FormComponentType.METADATA_DROPDOWN
     | FormComponentType.CODE_EDITOR
     | FormComponentType.FIELD_LIST
+    | FormComponentType.FIELD_LIST_FORM
     | FormComponentType.DYNAMIC_FIELD_LIST
     | FormComponentType.RADIO
   >;
@@ -146,10 +148,15 @@ export interface KVPair {
   key: string;
   value: string;
   editable?: boolean;
+  // indicates that the value must be treated like a file
+  // we use an object in case we have to add more metadata to the file in the future
+  file?: {
+    filename: string;
+  };
 }
 
 export interface FieldListFormItem extends BaseFormItem {
-  componentType: FormComponentType.FIELD_LIST | FormComponentType.DYNAMIC_FIELD_LIST;
+  componentType: FormComponentType.FIELD_LIST | FormComponentType.FIELD_LIST_FORM | FormComponentType.DYNAMIC_FIELD_LIST;
   secretsNames?: string[];
 }
 

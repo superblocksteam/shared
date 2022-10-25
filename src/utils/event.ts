@@ -1,9 +1,21 @@
 import rockset, { MainApi as RocksetClient } from '@rockset/client';
 import { UserEvent } from '../types';
 import { EnvEnum } from '../types/common/env';
+import { sleep } from './time';
+
+const BATCH_MAX_PAYLOAD_SIZE_KB = 500;
+const BATCH_MAX_LENGTH = 100;
+const DEFAULT_FLUSH_TIMEOUT_MS = 5000;
+const RETRY_COUNT = 3;
+const RETRY_DELAY_MS = 3000;
 
 export enum Collections {
   USER_EVENT = 'user-events'
+}
+
+function kilobytes(events: UserEvent[]): number {
+  const size = encodeURI(JSON.stringify(events)).split(/%..|./).length - 1;
+  return size / 1024;
 }
 
 // General logger function interface
@@ -31,8 +43,29 @@ export class EventSender {
   collection: string;
   env: string;
   logger: Logger;
+  eventsBuffer: UserEvent[];
+  schedule: NodeJS.Timeout | undefined;
+  // flush will be triggered after this timeout, all subsequent events will be batched
+  flushTimeout: number;
+  // flush immediately if the existing batch length reachs this limit
+  batchMaxLength: number;
+  // flush immediately if the existing batch length reachs this limit
+  batchMaxSizeKB: number;
 
-  private constructor(apiKey: string, env: EnvEnum, collection: string, logger: Logger) {
+  retryCount: number;
+  retryDelayMS: number;
+
+  private constructor(
+    apiKey: string,
+    env: EnvEnum,
+    collection: string,
+    logger: Logger,
+    flushTimeout?: number,
+    batchMaxLength?: number,
+    batchMaxSizeKB?: number,
+    retryCount?: number,
+    retryDelayMS?: number
+  ) {
     // Staging and dev share a rockset workspace
     if (env === EnvEnum.DEV || env === EnvEnum.STAGING || env === EnvEnum.DEMO) {
       this.workspace = 'staging';
@@ -46,29 +79,108 @@ export class EventSender {
     this.collection = collection;
     this.env = env;
     this.logger = logger;
+    this.eventsBuffer = [];
+    this.flushTimeout = flushTimeout ? flushTimeout : DEFAULT_FLUSH_TIMEOUT_MS;
+    this.batchMaxLength = batchMaxLength ? batchMaxLength : BATCH_MAX_LENGTH;
+    this.batchMaxSizeKB = batchMaxSizeKB ? batchMaxSizeKB : BATCH_MAX_PAYLOAD_SIZE_KB;
+    this.retryCount = retryCount ? retryCount : RETRY_COUNT;
+    this.retryDelayMS = retryDelayMS ? retryDelayMS : RETRY_DELAY_MS;
   }
 
-  public static configure(apiKey: string, env: EnvEnum, collection: string, logger: Logger): void {
-    this._instance = new this(apiKey, env, collection, logger);
+  public static configure(
+    apiKey: string,
+    env: EnvEnum,
+    collection: string,
+    logger: Logger,
+    flushTimeout?: number,
+    batchMaxLength?: number,
+    batchMaxSizeKB?: number,
+    retryCount?: number,
+    retryDelayMS?: number
+  ): void {
+    this._instance = new this(apiKey, env, collection, logger, flushTimeout, batchMaxLength, batchMaxSizeKB, retryCount, retryDelayMS);
   }
 
-  // TODO retry and batching will be implemented here
+  private static async flush(): Promise<void> {
+    if (this._instance.eventsBuffer.length) {
+      const eventsToSend = this._instance.eventsBuffer;
+      this._instance.eventsBuffer = [];
+      return this.sendEvents(eventsToSend);
+    }
+  }
+
+  private static approachingMaxSize(events: UserEvent[]): boolean {
+    return kilobytes(events) >= this._instance.batchMaxSizeKB - 50;
+  }
+
+  public static async sendEvents(events: UserEvent[]): Promise<void> {
+    if (events.length === 0) {
+      return;
+    }
+
+    for (let x = 0; x < this._instance.retryCount; x++) {
+      try {
+        if (this._instance.env === EnvEnum.DEV) {
+          this._instance.logger.debug(`EventSender event: ${JSON.stringify(events)}`);
+          return;
+        }
+
+        await this._instance.rocksetClient.documents.addDocuments(this._instance.workspace, this._instance.collection, {
+          data: events
+        });
+        return;
+      } catch (err) {
+        this._instance.logger.error(
+          `EventSender failed to send to Rockset, attempt: ${x + 1}/${this._instance.retryCount}, length: ${
+            events.length
+          }, payload: ${kilobytes(events)}, error: ${JSON.stringify(err)}`
+        );
+      }
+
+      await sleep(this._instance.retryDelayMS);
+    }
+  }
+
+  private static scheduleFlush(): void {
+    // there is already a scheduled flush
+    if (this._instance.schedule) {
+      return;
+    }
+
+    // create a new scheduled flush
+    this._instance.schedule = setTimeout(() => {
+      this._instance.schedule = undefined;
+      this.flush().catch((err) => {
+        this._instance.logger.error(`scheduled flush failedt: ${JSON.stringify(err)}`);
+      });
+    }, this._instance.flushTimeout);
+  }
+
+  // This is the main interface that users of this lib will be using and it's non-blocking
   public static async send(event: UserEvent): Promise<void> {
     if (!this._instance) {
       throw Error('RocksetClient not initialized');
     }
 
-    try {
-      if (this._instance.env === EnvEnum.DEV) {
-        this._instance.logger.debug(`EventSender event: ${JSON.stringify(event)}`);
-        return;
+    // if the incoming message is large, flush the existing batch
+    if (this.approachingMaxSize([...this._instance.eventsBuffer, event])) {
+      try {
+        await this.flush();
+      } catch (err) {
+        this._instance.logger.error(`flush existing batch before incoming large event failed: ${JSON.stringify(err)}`);
       }
+    }
 
-      await this._instance.rocksetClient.documents.addDocuments(this._instance.workspace, this._instance.collection, {
-        data: [event]
+    this._instance.eventsBuffer.push(event);
+    const overflow =
+      this._instance.eventsBuffer.length >= this._instance.batchMaxLength || this.approachingMaxSize(this._instance.eventsBuffer);
+
+    if (overflow) {
+      this.flush().catch((err) => {
+        this._instance.logger.error(`overflow flush failed: ${JSON.stringify(err)}`);
       });
-    } catch (err) {
-      this._instance.logger.error(`EventSender failed to send to Rockset: ${JSON.stringify(err)}`);
+    } else {
+      this.scheduleFlush();
     }
   }
 }

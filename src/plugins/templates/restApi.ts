@@ -150,7 +150,7 @@ export const RestApiPlugin: Plugin = {
             name: RestApiFields.FORM_DATA,
             label: getRestApiBodyLabel(RestApiBodyDataType.FORM),
             startVersion: RestApiPluginVersions.V8,
-            componentType: FormComponentType.FIELD_LIST,
+            componentType: FormComponentType.FIELD_LIST_FORM,
             display: {
               show: {
                 bodyType: [RestApiBodyDataType.FORM]

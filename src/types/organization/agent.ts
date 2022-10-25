@@ -23,7 +23,8 @@ export enum AgentStatus {
   DISCONNECTED = 'Disconnected',
   BROWSER_UNREACHABLE = 'Browser Unreachable',
   // TODO: remove PENDING_REGISTRATION after the DB migration
-  PENDING_REGISTRATION = 'Pending Registration'
+  PENDING_REGISTRATION = 'Pending Registration',
+  STALE = 'Stale'
 }
 
 export type Agents = Record<string, Agent>;
