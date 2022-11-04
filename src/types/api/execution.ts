@@ -37,6 +37,7 @@ export class ExecutionContext {
   errorContext?: {
     actionId: string;
     actionName: string;
+    pluginId: string;
   };
 
   constructor(context?: ExecutionContext) {

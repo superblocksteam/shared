@@ -2,6 +2,10 @@ import { ApiLocationContext } from '../api';
 import { ApiResourceTiming } from '../common/timing';
 import { ApiRunStatus } from './apiRunDetails';
 
+export enum Source {
+  SCHEDULED_JOB = 'Schedule'
+}
+
 export enum AuditLogEntityType {
   APPLICATION,
   WORKFLOW,
