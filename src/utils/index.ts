@@ -7,3 +7,4 @@ export * from './time';
 export * from './truncate';
 export * from './url';
 export * from './retry';
+export * from './bytestring';

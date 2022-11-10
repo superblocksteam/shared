@@ -19,8 +19,8 @@ export type Action = {
 };
 
 export type GoogleSheetsActionConfiguration = {
-  spreadsheetId: string;
-  sheetTitle: string;
+  spreadsheetId?: string;
+  sheetTitle?: string;
   range?: string;
   rowNumber?: number;
   extractFirstRowHeader?: boolean;
@@ -98,6 +98,7 @@ export type RedshiftActionConfiguration = DBActionConfiguration;
 
 type RestApiCommonActionConfiguration = {
   httpMethod?: HttpMethod;
+  responseType?: RestApiResponseType;
   headers?: Property[];
   params?: Property[];
   bodyType?: RestApiBodyDataType;
@@ -214,6 +215,13 @@ export enum HttpMethod {
   DELETE = 'DELETE',
   OPTIONS = 'OPTIONS',
   TRACE = 'TRACE'
+}
+
+export enum RestApiResponseType {
+  AUTO = 'auto',
+  JSON = 'json',
+  TEXT = 'text',
+  BINARY = 'binary'
 }
 
 export enum PaginationType {

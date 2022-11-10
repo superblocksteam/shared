@@ -84,7 +84,8 @@ export enum RestApiFields {
   HTTP_METHOD = 'httpMethod',
   URL_BASE = 'urlBase',
   URL_PATH = 'urlPath',
-  AUTH_TYPE = 'authType'
+  AUTH_TYPE = 'authType',
+  RESPONSE_TYPE = 'responseType'
 }
 
 const restApiFieldDisplayName: Map<RestApiFields, string> = new Map([
@@ -98,7 +99,8 @@ const restApiFieldDisplayName: Map<RestApiFields, string> = new Map([
   [RestApiFields.HTTP_METHOD, 'Method'],
   [RestApiFields.URL_BASE, 'Base Url'],
   [RestApiFields.URL_PATH, 'Url Path'],
-  [RestApiFields.AUTH_TYPE, 'Authentication']
+  [RestApiFields.AUTH_TYPE, 'Authentication'],
+  [RestApiFields.RESPONSE_TYPE, 'Response type']
 ]);
 
 export const getRestApiFieldDisplayName = function (field: RestApiFields): string {

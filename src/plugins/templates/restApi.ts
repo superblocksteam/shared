@@ -11,6 +11,7 @@ import {
   PluginType,
   RestApiBodyDataType,
   RestApiFields,
+  RestApiResponseType,
   REST_API_BASE_PLUGIN_ID
 } from '../../types';
 
@@ -77,6 +78,36 @@ export const RestApiPlugin: Plugin = {
             placeholder: 'https://www.example.com/api?filter={{Dropdown1.selectedOptionValue}}',
             subtitle: `Authenticating with OAuth 2.0, Firebase, or Basic Auth? Create a [REST API Integration](/integrations/restapiintegration)`,
             rules: [{ required: true, message: 'URL is required' }]
+          },
+          {
+            name: RestApiFields.RESPONSE_TYPE,
+            label: getRestApiFieldDisplayName(RestApiFields.RESPONSE_TYPE),
+            startVersion: RestApiPluginVersions.V1,
+            componentType: FormComponentType.DROPDOWN,
+            initialValue: RestApiResponseType.AUTO,
+            rules: [{ required: true }],
+            options: [
+              {
+                key: RestApiResponseType.AUTO,
+                value: RestApiResponseType.AUTO,
+                displayName: 'Auto'
+              },
+              {
+                key: RestApiResponseType.JSON,
+                value: RestApiResponseType.JSON,
+                displayName: 'JSON'
+              },
+              {
+                key: RestApiResponseType.TEXT,
+                value: RestApiResponseType.TEXT,
+                displayName: 'Text'
+              },
+              {
+                key: RestApiResponseType.BINARY,
+                value: RestApiResponseType.BINARY,
+                displayName: 'Binary'
+              }
+            ]
           }
         ]
       },

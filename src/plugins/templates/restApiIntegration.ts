@@ -14,7 +14,8 @@ import {
   PluginType,
   RestApiBodyDataType,
   RestApiFields,
-  RestApiIntegrationAuthType
+  RestApiIntegrationAuthType,
+  RestApiResponseType
 } from '../../types';
 
 export enum RestApiIntegrationPluginMergedFieldNames {
@@ -487,6 +488,36 @@ Note: REST APIs authenticated with firebase cannot be used in Superblocks Workfl
             startVersion: RestApiIntegrationPluginVersions.V1,
             componentType: FormComponentType.DYNAMIC_INPUT_TEXT,
             placeholder: '/v1/users'
+          },
+          {
+            name: RestApiFields.RESPONSE_TYPE,
+            label: getRestApiFieldDisplayName(RestApiFields.RESPONSE_TYPE),
+            startVersion: RestApiIntegrationPluginVersions.V1,
+            componentType: FormComponentType.DROPDOWN,
+            initialValue: RestApiResponseType.AUTO,
+            rules: [{ required: true }],
+            options: [
+              {
+                key: RestApiResponseType.AUTO,
+                value: RestApiResponseType.AUTO,
+                displayName: 'Auto'
+              },
+              {
+                key: RestApiResponseType.JSON,
+                value: RestApiResponseType.JSON,
+                displayName: 'JSON'
+              },
+              {
+                key: RestApiResponseType.TEXT,
+                value: RestApiResponseType.TEXT,
+                displayName: 'Text'
+              },
+              {
+                key: RestApiResponseType.BINARY,
+                value: RestApiResponseType.BINARY,
+                displayName: 'Binary'
+              }
+            ]
           }
         ]
       },

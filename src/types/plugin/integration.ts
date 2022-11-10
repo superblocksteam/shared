@@ -1,5 +1,6 @@
 export const GRAPHQL_BASE_PLUGIN_ID = 'graphql';
 export const REST_API_BASE_PLUGIN_ID = 'restapi';
+export const REST_API_DEFAULT_USER_AGENT = `superblocks ${REST_API_BASE_PLUGIN_ID}`;
 
 export enum ExtendedIntegrationPluginId {
   GRAPHQL = 'graphqlintegration',

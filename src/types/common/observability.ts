@@ -83,6 +83,7 @@ export interface UIDiagnosticMetadata {
   superblocks_ui_error_priority?: UIErrorPriority;
   superblocks_ui_error_type?: UIErrorType;
   superblocks_ui_error_code?: number;
+  source?: 'custom';
 }
 
 export enum DiagnosticType {
