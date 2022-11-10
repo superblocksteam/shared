@@ -4,6 +4,7 @@ import { PluginExecutionVersions } from '../plugin';
 import { Agent, AgentType } from './agent';
 
 export const SUPERBLOCKS_ORG_NAME = 'superblockshq.com';
+export const SUPERBLOCKS_TEST_ORG_NAME = 'superblocksservertest.com';
 
 export const VISITOR_ORG_NAME = 'visitor';
 

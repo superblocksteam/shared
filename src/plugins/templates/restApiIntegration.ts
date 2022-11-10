@@ -388,7 +388,7 @@ Note: REST APIs authenticated with firebase cannot be used in Superblocks Workfl
           },
           {
             label: '',
-            messageTemplate: 'Allow-list the Superblocks OAuth callback/redirect URI: `https://app.superblockshq.com/oauth/callback`',
+            messageTemplate: 'Allow-list the Superblocks OAuth callback/redirect URI: `https://app.superblocks.com/oauth/callback`',
             name: 'oauth-callback-alert',
             startVersion: RestApiIntegrationPluginVersions.V1,
             componentType: FormComponentType.ALERT,
