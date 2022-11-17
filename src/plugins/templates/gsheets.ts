@@ -4,7 +4,6 @@ import {
   FormComponentType,
   GoogleSheetsAuthType,
   GoogleSheetsDatasourceConfiguration,
-  InputDataType,
   Plugin,
   PluginResponseType,
   PluginType,
@@ -422,9 +421,8 @@ export const GoogleSheetsPlugin = (googleSheetsClientId: string, redirectPath: s
               label: 'Header row number',
               name: 'headerRowNumber',
               startVersion: GoogleSheetsPluginVersions.V15,
-              componentType: FormComponentType.INPUT_TEXT,
-              dataType: InputDataType.NUMBER,
-              minNumber: 1,
+              componentType: FormComponentType.CODE_EDITOR,
+              language: EditorLanguage.TEXT,
               initialValue: 1,
               display: {
                 show: {
@@ -437,9 +435,8 @@ export const GoogleSheetsPlugin = (googleSheetsClientId: string, redirectPath: s
               label: 'Header row number',
               name: 'headerRowNumber',
               startVersion: GoogleSheetsPluginVersions.V15,
-              componentType: FormComponentType.INPUT_TEXT,
-              dataType: InputDataType.NUMBER,
-              minNumber: 1,
+              componentType: FormComponentType.CODE_EDITOR,
+              language: EditorLanguage.TEXT,
               initialValue: 1,
               display: {
                 show: {
@@ -504,9 +501,9 @@ export const GoogleSheetsPlugin = (googleSheetsClientId: string, redirectPath: s
               label: 'Starting row number',
               name: 'rowNumber',
               startVersion: GoogleSheetsPluginVersions.V15,
-              componentType: FormComponentType.INPUT_TEXT,
-              dataType: InputDataType.NUMBER,
-              minNumber: 1,
+              componentType: FormComponentType.CODE_EDITOR,
+              placeholder: '2',
+              language: EditorLanguage.TEXT,
               rules: [{ required: true, message: 'Starting row number is required' }],
               display: {
                 show: {

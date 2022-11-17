@@ -22,9 +22,11 @@ export type GoogleSheetsActionConfiguration = {
   spreadsheetId?: string;
   sheetTitle?: string;
   range?: string;
-  rowNumber?: number;
+  /** a string containing an integer */
+  rowNumber?: string;
   extractFirstRowHeader?: boolean;
-  headerRowNumber?: number;
+  /** a string containing an integer */
+  headerRowNumber?: string;
   format?: GoogleSheetsFormatType;
   data?: string;
   preserveHeaderRow?: boolean;
