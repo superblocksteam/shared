@@ -46,6 +46,13 @@ export class ExecutionContext {
     this.preparedStatementContext = context && context.preparedStatementContext ? _.cloneDeep(context.preparedStatementContext) : [];
   }
 
+  // Do not merge the objects in arrays. Just replace the entire array.
+  private static customMerger(objValue, srcValue) {
+    if (_.isArray(objValue)) {
+      return srcValue;
+    }
+  }
+
   addGlobalVariable(name: string, value: unknown): void {
     const obj = { [name]: value };
     this.globals = _.mergeWith(obj, this.globals, ExecutionContext.customMerger);
@@ -77,11 +84,18 @@ export class ExecutionContext {
     };
   }
 
-  // Do not merge the objects in arrays. Just replace the entire array.
-  private static customMerger(objValue, srcValue) {
-    if (_.isArray(objValue)) {
-      return srcValue;
+  globalBindingKeys(): string[] {
+    if (_.isEmpty(this.globals)) {
+      return [];
     }
+    return Object.keys(this.globals);
+  }
+
+  outputBindingKeys(): string[] {
+    if (_.isEmpty(this.outputs)) {
+      return [];
+    }
+    return Object.keys(this.outputs);
   }
 }
 
