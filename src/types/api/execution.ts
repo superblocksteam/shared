@@ -93,7 +93,8 @@ export enum WorkflowExecutionParamsKey {
 export enum ApiReservedQueryParams {
   AUTH = 'sb-auth',
   ENVIRONMENT = 'environment',
-  TEST = 'test'
+  TEST = 'test',
+  RAW = 'raw'
 }
 
 export interface ExecutionParam {
