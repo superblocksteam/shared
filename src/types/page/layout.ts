@@ -1,8 +1,4 @@
-// TODO: Replace with better types
-interface WidgetProps {
-  type: string;
-  widgetId: string;
-  children?: WidgetProps[];
+export interface WidgetRowCols {
   leftColumn?: number;
   rightColumn?: number;
   // @type integer
@@ -13,7 +9,14 @@ interface WidgetProps {
   snapColumns?: number;
   // @type integer
   snapRows?: number;
-  minHeight?: number;
+  minHeight?: number; // Required to reduce the size of CanvasWidgets.
+}
+
+// TODO: Replace with better types
+interface WidgetProps extends WidgetRowCols {
+  type: string;
+  widgetId: string;
+  children?: WidgetProps[];
   detachFromLayout?: boolean;
   [key: string]: unknown;
 }
